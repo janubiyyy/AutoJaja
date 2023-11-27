@@ -110,7 +110,7 @@
                           type="button"
                           class="btn-find"
                         >
-                          <span class="far fa-search"></span> Find Car
+                          <span class="far fa-search"></span> Cari Mobil
                         </button>
                       </div>
                     </div>
