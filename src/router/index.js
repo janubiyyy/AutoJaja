@@ -1,5 +1,5 @@
-import Vue from "vue";
-import Router from "vue-router";
+import Vue from 'vue';
+import VueRouter from 'vue-router';
 import Home from "../components/HomeSection.vue";
 import BackUp from "../components/backup";
 import HomeSection from "../components/Home";
@@ -18,17 +18,16 @@ import List from "../components/list";
 import KebijakanPrivasi from "../components/kebijakanprivasi";
 import Rekomondasi from "../components/rekomondasi";
 
-Vue.use(Router);
+Vue.use(VueRouter);
 
-const router = new Router({
+
+const router = new VueRouter({
+  mode: 'history',
   routes: [
     {
-      path: "/",
-      name: "Home",
+      path: '/',
+      name: 'Home',
       component: Home,
-      // meta: {
-      //   requiresAuth: true, // Halaman ini memerlukan autentikasi
-      // },
     },
 
     {

@@ -30,7 +30,40 @@
             <form action="#">
               <div>
                 <div class="row">
-                  <div class="col-md-4 col-12">
+                  <div class="col-md-3 car-sort-box">
+                    <div class="car-search-form">
+                      <span
+                        style="
+                          color: var(--color-blue-blue-06, #0f5392);
+
+                          /* Body 1 */
+                          font-family: Inter;
+                          font-size: 20px;
+                          font-style: normal;
+                          font-weight: 600;
+                          line-height: normal;
+                          letter-spacing: 0.4px;
+                        "
+                        >Search
+                      </span>
+                      <!-- Update the button click event to call the renamed method -->
+                      <form action="#">
+                        <div class="form-group">
+                          <input
+                            v-model="searchTerm"
+                            type="text"
+                            class="form-control"
+                            placeholder="Search"
+                          />
+                          <!-- Only update the click event for the button -->
+                          <button type="button" @click="performSearch">
+                            <i class="far fa-search"></i>
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                  <div class="col-md-3 col-12">
                     <!-- Merek Select -->
                     <div class="form-group">
                       <label>Merk</label>
@@ -45,7 +78,7 @@
                     </div>
                   </div>
 
-                  <div class="col-md-4 col-12">
+                  <div class="col-md-3 col-12">
                     <div class="form-group">
                       <label>Transmisi</label>
                       <!-- Transmisi Select -->
@@ -60,7 +93,7 @@
                     </div>
                   </div>
 
-                  <div class="col-md-4 col-12">
+                  <div class="col-md-3 col-12">
                     <div class="form-group">
                       <label style="color: white">Transmisi</label>
                       <button
@@ -144,7 +177,7 @@
                     v-for="brand in carBrands.slice(0, limit)"
                     :key="brand.id_merek"
                     class="mr-5 category-item wow fadeInUp"
-                    style="max-width: 170px;"
+                    style="max-width: 170px"
                   >
                     <!-- Tampilan data mobil -->
                     <div
@@ -158,7 +191,8 @@
                         width: 270px;
                         height: auto;
                         margin-bottom: 25px;
-                        box-shadow: var(--box-shadow);
+                        margin-top: 25px;
+                        box-shadow: -1px 0 5px 0 rgb(0, 0, 0, 0.15);
                         transition: var(--transition);
                       "
                     >
@@ -174,7 +208,7 @@
                               object-fit: cover;
                               justify-content: center;
                               align-items: center;
-                              border-radius: 0; 
+                              border-radius: 0;
                             "
                             alt=""
                             @error="handleImageError"
@@ -221,54 +255,24 @@
             </div>
             <br />
             <!-- Tampilan Skeleton Latest Listing -->
-            <div
-              class="container"
-              v-if="isLoading || filteredCarItems.length === 0"
-            >
+            <div class="container" v-if="isLoading">
               <v-slide-group
                 mobile-break-point="1000"
                 show-arrows
                 center-active
               >
-                <template v-slot:next>
-                  <v-icon color="orange" large>mdi-chevron-right</v-icon>
-                </template>
-                <template v-slot:prev>
-                  <v-icon color="orange" large>mdi-chevron-left</v-icon>
-                </template>
-                <v-slide-item
-                  v-for="c in filteredCarItems.slice(0, limit)"
-                  :key="c.id"
-                  class="mr-5"
-                >
-                </v-slide-item>
+                <!-- ... -->
+                <!-- Pastikan jumlah v-skeleton-loader sesuai dengan limit -->
                 <v-skeleton-loader
-                  class="mx-auto borde mr-4"
-                  width="230px"
-                  type="image, article"
-                ></v-skeleton-loader>
-                <v-skeleton-loader
-                  class="mx-auto border mr-4"
-                  width="230px"
-                  type="image, article"
-                ></v-skeleton-loader>
-                <v-skeleton-loader
-                  class="mx-auto border mr-4"
-                  width="230px"
-                  type="image, article"
-                ></v-skeleton-loader>
-                <v-skeleton-loader
-                  class="mx-auto border mr-4"
-                  width="230px"
-                  type="image, article"
-                ></v-skeleton-loader>
-                <v-skeleton-loader
+                  v-for="i in limit"
+                  :key="i"
                   class="mx-auto border mr-4"
                   width="230px"
                   type="image, article"
                 ></v-skeleton-loader>
               </v-slide-group>
             </div>
+
             <!-- Tampilan Produk Latest Listing -->
             <div class="container" v-else>
               <div class="test">
@@ -284,7 +288,7 @@
                     <v-icon color="orange" large>mdi-chevron-left</v-icon>
                   </template>
                   <v-slide-item
-                    v-for="c in carData.slice(0, limit)"
+                    v-for="c in filteredCarData.slice(0, limit)"
                     :key="c.id"
                     class="mr-5"
                   >
@@ -299,8 +303,9 @@
                         padding: 10px;
                         width: 270px;
                         height: auto;
+                        margin-top: 25px;
                         margin-bottom: 25px;
-                        box-shadow: var(--box-shadow);
+                        box-shadow: -1px 0 5px 0 rgb(0, 0, 0, 0.15);
                         transition: var(--transition);
                       "
                     >
@@ -350,7 +355,7 @@
                             >
                               <router-link :to="'/'">
                                 <img
-                                  src="../assets/img/foot/jajaauto.png"
+                                  src="https://auto.jaja.id/img/jajaauto.2391e51f.png"
                                   style="width: 70px"
                                   alt="" /></router-link
                             ></v-chip>
@@ -384,7 +389,7 @@
       </div>
       <!-- Tampilan Kategori  -->
       <div>
-        <div class="car-category py-100">
+        <div class="car-category py-100" style="background-color: #f9f9f9">
           <div class="container">
             <div class="row">
               <div class="col-lg-6 mx-auto">
@@ -394,33 +399,34 @@
               </div>
             </div>
             <div class="row">
-  <div
-    class="col-6 col-md-4 col-lg-2"
-   
-    v-for="type in carJenis.slice(0, limit)"
-    :key="type.jenis_id"
-  >
-    <a
-      href="#"
-      class="category-item wow fadeInUp"
-      style="padding: 0;"
-      data-wow-delay=".25s"
-      @click.prevent="selectType(type)"
-    >
-      <div>
-        <img style="border-radius: 10px; " :src="type.image" alt="" />
-      </div>
-    </a>
-  </div>
-</div>
-
+              <div
+                class="col-6 col-md-4 col-lg-2"
+                v-for="type in carJenis.slice(0, limit)"
+                :key="type.jenis_id"
+              >
+                <a
+                  href="#"
+                  class="category-item wow fadeInUp"
+                  style="
+                    padding: 0;
+                    box-shadow: -1px 0 5px 0 rgb(0, 0, 0, 0.15);
+                  "
+                  data-wow-delay=".25s"
+                  @click.prevent="selectType(type)"
+                >
+                  <div>
+                    <img style="border-radius: 10px" :src="type.image" alt="" />
+                  </div>
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
       <!-- Tampilan Total -->
       <div class="counter-area pt-30 pb-30 mt-3">
         <div class="container">
-          <div class="row m">
+          <div class="row">
             <div class="col-lg-3 col-sm-6">
               <div class="counter-box">
                 <div class="icon">
@@ -430,49 +436,11 @@
                   <span
                     class="counter"
                     data-count="+"
-                    data-to="500"
+                    data-to="30"
                     data-speed="3000"
-                    id="brandCounter"
-                    ><i class="fa-solid fa-spinner fa-spin-pulse"></i
-                  ></span>
-
-                  <h6 class="title">Brands</h6>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-3 col-sm-6">
-              <div class="counter-box">
-                <div class="icon">
-                  <i class="flaticon-car-key"></i>
-                </div>
-                <div>
-                  <span
-                    class="counter"
-                    data-count="+"
-                    data-to="500"
-                    data-speed="3000"
-                    id="modelCounter"
-                    ><i class="fa-solid fa-spinner fa-spin-pulse"></i
-                  ></span>
-
-                  <h6 class="title">Models</h6>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-3 col-sm-6">
-              <div class="counter-box">
-                <div class="icon">
-                  <i class="flaticon-screwdriver"></i>
-                </div>
-                <div>
-                  <span
-                    class="counter"
-                    data-count="+"
-                    data-to="1500"
-                    data-speed="3000"
-                    >1500</span
+                    >{{ totalLatestCars }}</span
                   >
-                  <h6 class="title">Partners</h6>
+                  <h6 class="title">Mobil Terbaru</h6>
                 </div>
               </div>
             </div>
@@ -487,9 +455,43 @@
                     data-count="+"
                     data-to="30"
                     data-speed="3000"
-                    >30</span
+                    >{{ totalPopularCars }}</span
                   >
-                  <h6 class="title">Rating</h6>
+                  <h6 class="title">Mobil Popular</h6>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+              <div class="counter-box">
+                <div class="icon">
+                  <i class="flaticon-screwdriver"></i>
+                </div>
+                <div>
+                  <span
+                    class="counter"
+                    data-count="+"
+                    data-to="1500"
+                    data-speed="3000"
+                    >{{ totalCarJenis }}</span
+                  >
+                  <h6 class="title">Jenis Mobil</h6>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+              <div class="counter-box">
+                <div class="icon">
+                  <i class="flaticon-car-key"></i>
+                </div>
+                <div>
+                  <span
+                    class="counter"
+                    data-count="+"
+                    data-to="30"
+                    data-speed="3000"
+                    >{{ totalCarBrands }}</span
+                  >
+                  <h6 class="title">Merk Mobil</h6>
                 </div>
               </div>
             </div>
@@ -508,48 +510,16 @@
             </div>
             <br />
             <!-- Tampilan Skeleton Popular Listing  -->
-            <div
-              class="container"
-              v-if="isLoading || filteredCarItems.length === 0"
-            >
+            <div class="container" v-if="isLoading">
               <v-slide-group
                 mobile-break-point="1000"
                 show-arrows
                 center-active
               >
-                <template v-slot:next>
-                  <v-icon color="orange" large>mdi-chevron-right</v-icon>
-                </template>
-                <template v-slot:prev>
-                  <v-icon color="orange" large>mdi-chevron-left</v-icon>
-                </template>
-                <v-slide-item
-                  v-for="c in filteredCarItems.slice(0, limit)"
-                  :key="c.id"
-                  class="mr-5"
-                >
-                </v-slide-item>
+                <!-- ... -->
                 <v-skeleton-loader
-                  class="mx-auto borde mr-4"
-                  width="230px"
-                  type="image, article"
-                ></v-skeleton-loader>
-                <v-skeleton-loader
-                  class="mx-auto border mr-4"
-                  width="230px"
-                  type="image, article"
-                ></v-skeleton-loader>
-                <v-skeleton-loader
-                  class="mx-auto border mr-4"
-                  width="230px"
-                  type="image, article"
-                ></v-skeleton-loader>
-                <v-skeleton-loader
-                  class="mx-auto border mr-4"
-                  width="230px"
-                  type="image, article"
-                ></v-skeleton-loader>
-                <v-skeleton-loader
+                  v-for="i in limit"
+                  :key="i"
                   class="mx-auto border mr-4"
                   width="230px"
                   type="image, article"
@@ -571,7 +541,7 @@
                     <v-icon color="orange" large>mdi-chevron-left</v-icon>
                   </template>
                   <v-slide-item
-                    v-for="c in carPopular.slice(0, limit)"
+                    v-for="c in filteredCarPopular.slice(0, limit)"
                     :key="c.id"
                     class="mr-5"
                   >
@@ -587,7 +557,8 @@
                         width: 270px;
                         height: auto;
                         margin-bottom: 25px;
-                        box-shadow: var(--box-shadow);
+                        margin-top: 25px;
+                        box-shadow: -1px 0 5px 0 rgb(0, 0, 0, 0.15);
                         transition: var(--transition);
                       "
                     >
@@ -637,7 +608,7 @@
                             >
                               <router-link :to="'/'">
                                 <img
-                                  src="../assets/img/foot/jajaauto.png"
+                                  src="https://auto.jaja.id/img/jajaauto.2391e51f.png"
                                   style="width: 70px"
                                   alt="" /></router-link
                             ></v-chip>
@@ -730,7 +701,7 @@
               </div>
             </div>
           </section>
-      
+
           <div class="container">
             <div v-for="(item, index) in items" :key="index">
               <div
@@ -814,18 +785,21 @@ export default {
       carBrands: [],
       carJenis: [],
       limit: 10,
+      searchTerm: "",
       selectedMerek: "",
       selectedTransmisi: "",
       selectedBbm: "",
       selectedSeat: "",
-      selectedListrik: "",
+      // selectedListrik: "",
+      selectedJenis: "",
       selectedSortBy: "",
       selectedSortOrder: "",
       merekOptions: [],
       transmisiOptions: [],
       bbmOptions: [],
       seatOptions: [],
-      listrikOptions: [],
+      // listrikOptions: [],
+      jenisOptions: [],
       sortByOptions: [],
       sortOrderOptions: [],
 
@@ -887,6 +861,16 @@ export default {
     this.fetchSearchOptions();
   },
   computed: {
+    filteredCarData() {
+      return this.carData.filter((car) =>
+        car.name.toLowerCase().includes(this.searchTerm.toLowerCase())
+      );
+    },
+    filteredCarPopular() {
+      return this.carPopular.filter((car) =>
+        car.name.toLowerCase().includes(this.searchTerm.toLowerCase())
+      );
+    },
     filteredCarTypes() {
       // Return filtered car types based on the search input
       const searchTerm = this.selectedCarType.toLowerCase();
@@ -916,14 +900,21 @@ export default {
     // this.isLoggedIn = localStorage.getItem("token"); //Fungsi Halaman ini Harus Login
     this.fetchPopularCars();
     this.fetchLatestCars();
-    this.fetchCarItems(); //Fungsi Produk
+    // this.fetchCarItems(); //Fungsi Produk
     this.handledetail(slug); //Fungsi Memanggil ID detail produk
 
     const searchInput = document.querySelector('input[type="text"]');
     searchInput.addEventListener("input", this.filterCars); //Fungsi Pencarian berdasarkan keyword
   },
   methods: {
-    fetchLatestCars() {
+    performSearch() {
+      this.isLoading = true;
+
+      // Fetch data based on the search term for both carData and carPopular
+      this.fetchLatestCars(this.searchTerm);
+      this.fetchPopularCars(this.searchTerm);
+    },
+    fetchLatestCars(searchTerm = "") {
       axios
         .get("https://api.jaja.id/jauto/produk/get_latest", {
           headers: {
@@ -932,12 +923,16 @@ export default {
         })
         .then((response) => {
           this.carData = response.data.data; // Save car data from API response
+          this.totalLatestCars = this.carPopular.length; // Calculate total popular cars
+          this.isLoading = false; // Set isLoading to false when data is loaded
         })
         .catch((error) => {
-          console.error("Failed to fetch car data:", error);
+          console.error("Failed to fetch latest cars data:", error);
+          this.isLoading = false; // Set isLoading to false in case of an error
         });
     },
-    fetchPopularCars() {
+    fetchPopularCars(searchTerm = "") {
+      this.isLoading = true; // Set isLoading to true before fetching data
       axios
         .get("https://api.jaja.id/jauto/produk/get_popular", {
           headers: {
@@ -946,11 +941,15 @@ export default {
         })
         .then((response) => {
           this.carPopular = response.data.data; // Save car data from API response
+          this.totalPopularCars = this.carPopular.length; // Calculate total popular cars
+          this.isLoading = false; // Set isLoading to false after data is loaded
         })
         .catch((error) => {
-          console.error("Failed to fetch car data:", error);
+          console.error("Failed to fetch popular cars data:", error);
+          this.isLoading = false; // Set isLoading to false in case of an error
         });
     },
+
     selectBrand(brand) {
       this.selectedMerek = [
         { value: brand.nama_merek, label: brand.nama_merek },
@@ -988,12 +987,15 @@ export default {
         seat: this.selectedSeat
           ? this.selectedSeat.map((item) => item.value).join(",")
           : "",
-        listrik: this.selectedListrik
-          ? this.selectedListrik.map((item) => item.value).join(",")
-          : "",
+        // listrik: this.selectedListrik
+        //   ? this.selectedListrik.map((item) => item.value).join(",")
+        //   : "",
         sort_by: this.selectedSortBy ? this.selectedSortBy.value : "",
         sort_order: this.selectedSortOrder ? this.selectedSortOrder.value : "",
-        jenis_name: this.selectedJenis ? this.selectedJenis[0].value : "",
+        jenis_name: this.selectedJenis
+          ? this.selectedJenis.map((item) => item.label).join(",")
+          : "",
+        // jenis_name: this.selectedJenis ? this.selectedJenis[0].value : "",
       };
 
       this.$router.replace({
@@ -1016,9 +1018,10 @@ export default {
 
         // Assuming the response structure matches the provided result
         this.carJenis = response.data.data;
+        this.totalCarJenis = this.carJenis.length; // Calculate total car jenis
         this.isLoading = false;
       } catch (error) {
-        console.error("Error fetching car brands:", error);
+        console.error("Error fetching car jenis:", error);
         // Handle error appropriately
       }
     },
@@ -1035,6 +1038,7 @@ export default {
 
         // Assuming the response structure matches the provided result
         this.carBrands = response.data.data;
+        this.totalCarBrands = this.carBrands.length; // Calculate total car brands
         this.isLoading = false;
       } catch (error) {
         console.error("Error fetching car brands:", error);
@@ -1068,7 +1072,7 @@ export default {
           : "",
         bbm: this.selectedBbm ? this.selectedBbm.value : "",
         seat: this.selectedSeat ? this.selectedSeat.value : "",
-        listrik: this.selectedListrik ? this.selectedListrik.value : "",
+        // listrik: this.selectedListrik ? this.selectedListrik.value : "",
         sort_by: this.selectedSortBy ? this.selectedSortBy.value : "",
         sort_order: this.selectedSortOrder ? this.selectedSortOrder.value : "",
         jenis_name: this.selectedJenis ? this.selectedJenis[0].value : "", // Add this line
@@ -1135,7 +1139,8 @@ export default {
           this.transmisiOptions = data.data.transmisi;
           this.bbmOptions = data.data.bbm;
           this.seatOptions = data.data.seat;
-          this.listrikOptions = data.data.listrik;
+          // this.listrikOptions = data.data.listrik;
+          this.jenisOptions = data.data.jenis;
           this.sortByOptions = data.data.sort_by;
           this.sortOrderOptions = data.data.sort_order;
         } else {

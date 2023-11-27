@@ -474,7 +474,7 @@
                           >
                             <router-link :to="'/'">
                               <img
-                                src="../assets/img/foot/jajaauto.png"
+                                src="https://auto.jaja.id/img/jajaauto.2391e51f.png"
                                 style="width: 70px"
                                 alt="" /></router-link
                           ></v-chip>
@@ -517,30 +517,13 @@ import navigation from "../components/backup.vue";
 import foote from "../components/Footer";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { mapGetters } from "vuex";
-import VueMeta from "vue-meta";
+import { Head } from "vue-head";
 export default {
   name: "DetailLates",
   components: {
     navigation,
     foote,
-  },
-  metaInfo() {
-    return {
-      title: `Harga ${
-        this.carDetail[0].name
-      } terbaru November 2023 mulai dari Rp ${this.formatPrice(this.harga)}.`,
-      meta: [
-        {
-          name: "description",
-          content: `Harga ${
-            this.carDetail[0].name
-          } terbaru November 2023 mulai dari Rp ${this.formatPrice(
-            this.harga
-          )}. Sebelum beli, dapatkan info spesifikasi, promo diskon, dan simulasi kredit | Jaja Auto`,
-        },
-      ],
-    };
+    Head,
   },
   data() {
     return {
@@ -587,6 +570,12 @@ export default {
   computed: {
     cleanedDescription() {
       return this.extractCVT(this.carDetail[0].deskripsi);
+    },
+    pageTitle() {
+      return this.carDetail[0].name + " | " + this.selectedType;
+    },
+    pageDescription() {
+      return this.carDetail[0].deskripsi;
     },
   },
   mounted() {
@@ -1107,6 +1096,11 @@ Terima kasih,`;
   },
 };
 </script>
+
+<head>
+  <title>{{ pageTitle }}</title>
+  <meta name="description" :content="pageDescription">
+</head>
 <style>
 .nice-input::placeholder {
   color: black; /* Ganti dengan warna hitam yang Anda inginkan */

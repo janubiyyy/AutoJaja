@@ -10,7 +10,7 @@
                 <div class="col-lg-12">
                   <div class="car-widget" style="width: 102%">
                     <div class="row">
-                      <div class="col-md-3 car-sort-box">
+                      <!-- <div class="col-md-3 car-sort-box">
                         <div class="car-search-form">
                           <span
                             style="
@@ -41,9 +41,9 @@
                             </div>
                           </form>
                         </div>
-                      </div>
+                      </div> -->
 
-                      <div class="col-md-3 car-sort-box">
+                      <div class="col-md-4 car-sort-box">
                         <span
                           style="
                             color: var(--color-blue-blue-06, #0f5392);
@@ -66,7 +66,7 @@
                           placeholder="Pilih Urutan"
                         ></v-select>
                       </div>
-                      <div class="col-md-3 car-sort-box">
+                      <div class="col-md-4 car-sort-box">
                         <span
                           style="
                             color: var(--color-blue-blue-06, #0f5392);
@@ -90,7 +90,7 @@
                         ></v-select>
                       </div>
 
-                      <div class="col-md-3 car-sort-box">
+                      <div class="col-md-4 car-sort-box">
                         <span
                           style="
                             color: white;
@@ -173,11 +173,11 @@
                     </div>
                     <div class="mt-5">
                       <v-select
-                        v-model="selectedListrik"
-                        :options="listrikOptions"
+                        v-model="selectedJenis"
+                        :options="jenisOptions"
                         label="label"
                         value="value"
-                        placeholder="Pilih Jenis Listrik"
+                        placeholder="Pilih Jenis Kendaraan"
                         multiple
                       ></v-select>
                     </div>
@@ -402,14 +402,14 @@ export default {
       selectedTransmisi: [],
       selectedBbm: "", // Parameter bbm
       selectedSeat: "", // Parameter seat
-      selectedListrik: "", // Parameter listrik
+      selectedjenis: "", // Parameter listrik
       selectedSortBy: "", // Parameter sort_by
       selectedSortOrder: "", // Parameter sort_order
       merekOptions: [],
       transmisiOptions: [],
       bbmOptions: [],
       seatOptions: [],
-      listrikOptions: [],
+      jenisOptions: [],
       sortByOptions: [],
       sortOrderOptions: [],
       isLoading: true,
@@ -459,7 +459,7 @@ export default {
     },
     // Fungsi Ukuran Banner
     calculateHeight() {
-      return `${(9 / 27) * this.$vuetify.breakpoint.width}px`;
+      return `${(9 / 27) * this.$vuetify.bfilterCarsreakpoint.width}px`;
     },
     // Fungsi Skeleton Pada Card Produk
     skeletonCount() {
@@ -523,12 +523,16 @@ export default {
         seat: this.selectedSeat
           ? this.selectedSeat.map((item) => item.value).join(",")
           : "",
-        listrik: this.selectedListrik
-          ? this.selectedListrik.map((item) => item.value).join(",")
-          : "",
+        // listrik: this.selectedListrik
+        //   ? this.selectedListrik.map((item) => item.value).join(",")
+        //   : "",
+
         sort_by: this.selectedSortBy ? this.selectedSortBy.value : "",
         sort_order: this.selectedSortOrder ? this.selectedSortOrder.value : "",
-        jenis_name: this.selectedJenis ? this.selectedJenis[0].value : "",
+        jenis_name: this.selectedJenis
+          ? this.selectedJenis.map((item) => item.label).join(",")
+          : "",
+        // jenis_name: this.selectedJenis ? this.selectedJenis[0].value : "",
       };
 
       this.$router.replace({
@@ -554,12 +558,15 @@ export default {
         seat: this.selectedSeat
           ? this.selectedSeat.map((item) => item.value).join(",")
           : "",
-        listrik: this.selectedListrik
-          ? this.selectedListrik.map((item) => item.value).join(",")
-          : "",
+        // listrik: this.selectedListrik
+        //   ? this.selectedListrik.map((item) => item.value).join(",")
+        //   : "",
         sort_by: this.selectedSortBy ? this.selectedSortBy.value : "",
         sort_order: this.selectedSortOrder ? this.selectedSortOrder.value : "",
-        jenis_name: this.selectedJenis ? this.selectedJenis[0].value : "", // Add this line
+        jenis_name: this.selectedJenis
+          ? this.selectedJenis.map((item) => item.label).join(",")
+          : "",
+        // jenis_name: this.selectedJenis ? this.selectedJenis[0].value : "", // Add this line
       };
 
       // Buat URL API dengan parameter yang telah dicek
@@ -625,7 +632,7 @@ export default {
             this.transmisiOptions = data.data.transmisi;
             this.bbmOptions = data.data.bbm;
             this.seatOptions = data.data.seat;
-            this.listrikOptions = data.data.listrik;
+            this.jenisOptions = data.data.jenis;
             this.sortByOptions = data.data.sort_by;
             this.sortOrderOptions = data.data.sort_order;
             this.isLoading = false; // Setelah data diterima, isLoading disetel ke false
