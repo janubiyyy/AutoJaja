@@ -10,51 +10,61 @@
               <div class="about-right wow fadeInRight" data-wow-delay=".25s">
                 <div class="site-heading mb-3">
                   <span class="site-title-tagline justify-content-start">
-                    <i class="flaticon-drive"></i> Tentang Kami
+                    <i class="flaticon-drive"></i> PLATFORM TERLENGKAP DENGAN
+                    PELAYANAN TERBAIK
                   </span>
 
-                  <h1 style="font-size: 40px;" class="site-title">
-               Be Fast
-                  </h1>
-                 
+                  <h1 style="font-size: 40px" class="site-title">Jaja Auto</h1>
                 </div>
-                <p
-                  style="color: #000;
-                  display: flex;"
-                >
-                Menjadi yang tercepat baik dalam Kecepatan untuk Menanggapi, Efisiensi dalam Memberikan Pelayanan, dan Responsivitas dalam bekerja. 
+                <p style="color: #000; display: flex">
+                  Jaja Auto merupakan Perusahaan di bidang Penjualan Otomotif
+                  yang memfasilitasi New Car, Used Car, Trade in Sejak Januari
+                  2023. Kami berupaya untuk memberikan Pelayanan dengan Kualitas
+                  terbaik, dengan Berbagai Macam Pilihan Mobil Berkualitas untuk
+                  Kalian yang memudahkan pengguna dalam menjalankan transaksi
+                  jual beli mobil secara aman dan efisien selain itu juga kami
+                  menyediakan Fitur simulasi cicilan yang dapat memudahkan calon
+                  customer untuk mendapat gambaran agar dapat menyesuaikan
+                  cicilan dengan kebutuhan nantinya.
+                </p>
+                <br />
+                <br />
+                <div class="site-heading mb-3">
+                  <span class="site-title-tagline justify-content-start">
+                    <i class="flaticon-drive"></i> PRIORITAS KAMI
+                  </span>
+                  <h1 style="font-size: 40px" class="site-title">Be Fast</h1>
+                </div>
+                <p style="color: #000; display: flex">
+                  Menjadi yang tercepat baik dalam Kecepatan untuk Menanggapi,
+                  Efisiensi dalam Memberikan Pelayanan, dan Responsivitas dalam
+                  bekerja.
                 </p>
 
                 <div class="site-heading mb-3">
-               
-                  <h1 style="font-size: 40px;" class="site-title">
+                  <h1 style="font-size: 40px" class="site-title">
                     Be Accurate
                   </h1>
-                 
                 </div>
-                <p
-                  style="color: #000;
-                  display: flex;"
-                >
-                Bertanggung jawab untuk memberikan Informasi yang benar, hasil yang tepat dan layanan yang akurat. Baik dalam pengukuran atau perhitungan, dan kecermatan dalam setiap aspek pekerjaan atau layanan yang diberikan.
+                <p style="color: #000; display: flex">
+                  Bertanggung jawab untuk memberikan Informasi yang benar, hasil
+                  yang tepat dan layanan yang akurat. Baik dalam pengukuran atau
+                  perhitungan, dan kecermatan dalam setiap aspek pekerjaan atau
+                  layanan yang diberikan.
                 </p>
 
-                
                 <div class="site-heading mb-3">
-               
-               <h1 style="font-size: 40px;" class="site-title">
-                Be The Best
-               </h1>
-              
-             </div>
-             <p
-               style="color: #000;
-               display: flex;"
-             >
-             Kami selalu Menetapkan standar kualitas yang tinggi untuk produk atau layanan dan berkomitmen untuk memenuhi atau melebihi kebutuhan konsumen, dan memberikan pelayanan yang sebaik baiknya untuk konsumen
-             </p>
+                  <h1 style="font-size: 40px" class="site-title">
+                    Be The Best
+                  </h1>
+                </div>
+                <p style="color: #000; display: flex">
+                  Kami selalu Menetapkan standar kualitas yang tinggi untuk
+                  produk atau layanan dan berkomitmen untuk memenuhi atau
+                  melebihi kebutuhan konsumen, dan memberikan pelayanan yang
+                  sebaik baiknya untuk konsumen
+                </p>
 
-                
                 <button class="button-1 mt-4 mr-3">
                   <router-link to="/kategori">Cari Mobil</router-link>
                 </button>
@@ -71,7 +81,11 @@
             <div class="col-lg-6">
               <div class="about-left wow fadeInLeft" data-wow-delay=".25s">
                 <div class="about-img">
-                  <img style="width: 100%; border-radius: 10%;" src="../assets/img/about/haha.jpg" alt="" />
+                  <img
+                    style="width: 100%; border-radius: 10%"
+                    src="../assets/img/about/haha.jpg"
+                    alt=""
+                  />
                 </div>
               </div>
             </div>

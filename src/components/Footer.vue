@@ -240,12 +240,12 @@
                   ></a>
                 </li>
                 <li>
-                  <a href="https://twitter.com/jajaid_"
-                    ><i class="fab fa-twitter"></i
+                  <a href="https://www.tiktok.com/@jaja_auto?_t=8hlHN51KqPK&_r=1"
+                    ><i class="fa-brands fa-tiktok"></i
                   ></a>
                 </li>
                 <li>
-                  <a href="https://www.instagram.com/jajaid.official/"
+                  <a href="https://instagram.com/jaja.auto?igshid=MzMyNGUyNmU2YQ%3D%3D&utm_source=qr"
                     ><i class="fab fa-instagram"></i
                   ></a>
                 </li>

@@ -37,6 +37,33 @@
                         <i class="far fa-eye"></i> Dilihat:
                         {{ carDetail[0].viewed }}
                       </li>
+                      <div class="share-buttons">
+                        <!-- Tombol Utama Share -->
+                        <button
+                          @click="toggleShareOptions"
+                          class="main-share-btn"
+                        >
+                          <i class="fas fa-share"></i>
+                        </button>
+
+                        <!-- Pilihan Share yang Muncul Setelah Tombol Utama Diklik -->
+                        <div v-if="showShareOptions" class="share-options">
+                          <!-- Tombol Share untuk WhatsApp -->
+                          <button @click="shareWhatsApp" class="whatsapp-btn">
+                            <i class="fab fa-whatsapp"></i>
+                          </button>
+
+                          <!-- Tombol Share untuk Facebook -->
+                          <button @click="shareFacebook" class="facebook-btn">
+                            <i class="fab fa-facebook"></i>
+                          </button>
+
+                          <!-- Tombol Copy Link -->
+                          <button @click="copyLink" class="copy-link-btn">
+                            <i class="fas fa-copy"></i>
+                          </button>
+                        </div>
+                      </div>
                     </div>
                   </div>
                   <div class="car-single-slider">
@@ -530,7 +557,7 @@ export default {
       savedSlug: localStorage.getItem("slug"),
       whatsappNumber: "6281990181108", //number untuk redirect ke whatsapp
       isLoading: false, //loading pada fungsi
-
+      showShareOptions: false,
       // Warna dan image terbaru
       selectedColor: null,
       selectedChipIndex: 0,
@@ -603,9 +630,22 @@ export default {
   mounted() {
     // Mengambil slug dari localStorage
     const savedSlug = localStorage.getItem("slug");
-    const currentSlug = this.$route.params.slug;
+    const currentSlug = this.$route.params.slug; //Ini Ambil Link tapi yg belakangnya aja
+    const lengkap = this.$route?.fullPath; //Ini Ambil Link tapi yg belakangnya aja depannya tinggal tambahin https://auto.jaja.id/
+    console.log(`lengkap`, lengkap);
     localStorage.setItem("slug", currentSlug);
-    console.log("Current Slug:", currentSlug);
+    console.log("saat Refresh:", currentSlug);
+
+    if (!savedSlug) {
+      console.log(`gamasuk slugnya`);
+      const slug = localStorage.setItem("slug", currentSlug);
+      console.log(`dari gamasuk`, currentSlug);
+      this.getCarDetail(currentSlug);
+      this.getRelatedCars(currentSlug);
+      this.fetchData();
+      this.fetchBunga();
+      localStorage.removeItem("slug");
+    }
 
     if (savedSlug) {
       // Menggunakan slug yang disimpan untuk mengambil detail mobil
@@ -613,6 +653,7 @@ export default {
       this.getRelatedCars(savedSlug);
       this.fetchData();
       this.fetchBunga();
+      localStorage.removeItem("slug");
     }
   },
   created() {
@@ -639,19 +680,46 @@ export default {
     }
   },
   methods: {
-    // Fungsi untuk berbagi di WhatsApp
-    shareOnWhatsApp() {
-      window.open(this.whatsappLink, "_blank");
+    toggleShareOptions() {
+      this.showShareOptions = !this.showShareOptions;
     },
-    // Fungsi untuk berbagi di Facebook
-    shareOnFacebook() {
-      window.open(this.facebookLink, "_blank");
-    },
-    // Fungsi untuk berbagi di Twitter
-    shareOnTwitter() {
-      window.open(this.twitterLink, "_blank");
+    shareWhatsApp() {
+      const link = this.generateShareLink();
+      const productDescription = encodeURIComponent(
+        "Temukan keseruan baru dengan Mobil impian anda di Auto.jaja.id! "
+      );
+      const whatsappLink = `https://wa.me/?text=${productDescription}%0A${encodeURIComponent(
+        link
+      )}`;
+      window.open(whatsappLink, "_blank");
     },
 
+    shareFacebook() {
+      const link = this.generateShareLink();
+      const productDescription = encodeURIComponent(
+        "Temukan keseruan baru dengan Mobil impian anda di Auto.jaja.id!"
+      );
+      const facebookLink = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+        link
+      )}&quote=${productDescription}`;
+      window.open(facebookLink, "_blank");
+    },
+
+    copyLink() {
+      const link = this.generateShareLink();
+      const el = document.createElement("textarea");
+      el.value = link;
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand("copy");
+      document.body.removeChild(el);
+      alert("Link telah disalin!");
+    },
+
+    generateShareLink() {
+      // Menggunakan fullPath dari route untuk membuat link
+      return `https://auto.jaja.id${this.$route?.fullPath}`;
+    },
     extractCVT(input) {
       // Extract only the text "CVT"
       const match = input.match(/CVT/i);
@@ -859,9 +927,7 @@ Terima kasih,`;
       let id = this.$route.params.slug;
       try {
         const response = await fetch(
-          `https://api.jaja.id/jauto/produk/get_produk_detail?slug=${
-            !slug ? id : slug
-          }`,
+          `https://api.jaja.id/jauto/produk/get_produk_detail?slug=${slug}`,
           {
             method: "GET",
             headers: {
@@ -910,6 +976,7 @@ Terima kasih,`;
             this.id = firstCarType.id;
             this.id_jauto_produk = firstCarType.id_jauto_produk;
           }
+          localStorage.removeItem("slug");
         } else {
           console.error("Failed to fetch car details.");
         }
@@ -955,8 +1022,9 @@ Terima kasih,`;
       console.log("Current URL:", this.$route.fullPath);
 
       // Redirect ke halaman "detaillates" dengan slug dalam URL
+      localStorage.removeItem("slug");
+      console.log(`berhasil di remove`);
       this.$router.push(`/detaillates/${carslug}`);
-
       // Me-refresh halaman
       // window.location.reload();
     },
@@ -1161,10 +1229,58 @@ Terima kasih,`;
   <meta name="description" :content="pageDescription">
 </head>
 <style>
-.nice-input::placeholder {
-  color: black; /* Ganti dengan warna hitam yang Anda inginkan */
+.share-buttons {
+  display: flex;
+  align-items: center;
 }
 
+button {
+  padding: 10px;
+  margin: 5px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  height: 41px;
+  font-weight: bold;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.main-share-btn {
+  background-color: #3498db;
+  color: #fff;
+  border-radius: 55%;
+}
+
+.whatsapp-btn {
+  background-color: #25d366;
+  color: #fff;
+  border-radius: 55%;
+}
+
+.facebook-btn {
+  background-color: #3b5998;
+  color: #fff;
+  border-radius: 55%;
+}
+
+.copy-link-btn {
+  background-color: #3498db;
+  color: #fff;
+  border-radius: 55%;
+}
+
+button:hover {
+  filter: brightness(1.2);
+}
+
+i {
+  margin-right: 0px;
+}
+
+.share-options {
+  display: flex;
+}
 /* CSS untuk input */
 .nice-input {
   border: 1px solid black; /* Warna garis tepi input */

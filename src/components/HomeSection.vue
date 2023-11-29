@@ -1315,6 +1315,8 @@ export default {
 
       // Redirect ke halaman "detaillates" dengan slug dalam URL
       this.$router.push(`/detaillates/${carslug}`);
+      localStorage.removeItem("slug");
+      console.log(`berhasil di remove`);
     },
     // Fungsi Mengambil ID detail
     handledetail(carsid) {
