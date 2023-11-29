@@ -605,6 +605,7 @@ export default {
     const savedSlug = localStorage.getItem("slug");
     const currentSlug = this.$route.params.slug;
     localStorage.setItem("slug", currentSlug);
+    console.log("Current Slug:", currentSlug);
 
     if (savedSlug) {
       // Menggunakan slug yang disimpan untuk mengambil detail mobil

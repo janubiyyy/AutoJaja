@@ -22,7 +22,7 @@
                         Brand New
                       </v-chip>
                       <div class="judul">
-                        <h3 style="color: black;" class="car-single-title">
+                        <h3 style="color: black" class="car-single-title">
                           {{ datadetail[0].model }}
                         </h3>
                       </div>
@@ -88,9 +88,7 @@
                             </div>
                             <div class="car-key-content">
                               <span>Mileage</span>
-                              <h6>
-                                10000-50000 KM/Tahun
-                              </h6>
+                              <h6>10000-50000 KM/Tahun</h6>
                             </div>
                           </div>
                         </div>
@@ -121,9 +119,7 @@
                       </p>
                     </div>
                     <div class="mb-4" v-else>
-                      <p>
-                        Maaf, belum ada deskripsi.
-                      </p>
+                      <p>Maaf, belum ada deskripsi.</p>
                     </div>
                   </div>
                 </div>
@@ -136,11 +132,11 @@
                     <span
                       class="mt-5"
                       style="
-        color: #1f1c1c;
-        font-size: 34px;
-        font-weight: bold;
-        padding: 0px 10px 0px 0px;
-      "
+                        color: #1f1c1c;
+                        font-size: 34px;
+                        font-weight: bold;
+                        padding: 0px 10px 0px 0px;
+                      "
                     >
                       Rp.{{
                         formatPrice(datadetail[0].price).toLocaleString(
@@ -192,7 +188,7 @@
                               "
                             >
                             </v-chip>
-                            <span style="font-size: 12px;">
+                            <span style="font-size: 12px">
                               {{ image.colorName }}</span
                             >
                           </v-col>
@@ -208,7 +204,7 @@
                     bg-color=""
                     color="deep-purple-accent-4"
                     align-tabs="center"
-                    style="color: #0c5eaa;"
+                    style="color: #0c5eaa"
                   >
                     <v-tab style="color: #0c5eaa"> Angsuran </v-tab>
                     <v-tab style="color: #0c5eaa"> Sewa </v-tab>
@@ -245,9 +241,7 @@
                                 </v-row>
                                 <v-row class="mt-5">
                                   <v-col cols="8">
-                                    <h5 class="car-single-price">
-                                      DP (Rp)
-                                    </h5>
+                                    <h5 class="car-single-price">DP (Rp)</h5>
                                     <input
                                       type="text"
                                       class="nice-input"
@@ -258,9 +252,7 @@
                                     />
                                   </v-col>
                                   <v-col cols="4">
-                                    <h5 class="car-single-price">
-                                      %
-                                    </h5>
+                                    <h5 class="car-single-price">%</h5>
                                     <input
                                       type="text"
                                       class="nice-input"
@@ -285,8 +277,9 @@
                                           v-for="bank in banks"
                                           :key="bank.id_bank"
                                           :value="bank.id_bank"
-                                          >{{ bank.nama_bank }}</option
                                         >
+                                          {{ bank.nama_bank }}
+                                        </option>
                                       </select>
                                       <div class="custom-select-arrow"></div>
                                     </div>
@@ -305,8 +298,9 @@
                                           v-for="wilayah in wilayahs"
                                           :key="wilayah.id_wilayah"
                                           :value="wilayah.id_wilayah"
-                                          >{{ wilayah.nama_wilayah }}</option
                                         >
+                                          {{ wilayah.nama_wilayah }}
+                                        </option>
                                       </select>
                                       <div class="custom-select-arrow"></div>
                                     </div>
@@ -321,23 +315,23 @@
                                     <button
                                       type="submit"
                                       style="
-      font-size: 16px;
-      color: var(--color-white);
-      padding: 12px 20px;
-      transition: all 0.5s;
-      text-transform: capitalize;
-      position: relative;
-      border-radius: 13px;
-      font-weight: 500;
-      cursor: pointer;
-      text-align: center;
-      overflow: hidden;
-      border: none;
-      background: var(--theme-color);
-      box-shadow: var(--box-shadow);
-      z-index: 1;
-      width: 100%;
-    "
+                                        font-size: 16px;
+                                        color: var(--color-white);
+                                        padding: 12px 20px;
+                                        transition: all 0.5s;
+                                        text-transform: capitalize;
+                                        position: relative;
+                                        border-radius: 13px;
+                                        font-weight: 500;
+                                        cursor: pointer;
+                                        text-align: center;
+                                        overflow: hidden;
+                                        border: none;
+                                        background: var(--theme-color);
+                                        box-shadow: var(--box-shadow);
+                                        z-index: 1;
+                                        width: 100%;
+                                      "
                                       @click="hitungAngsuran"
                                     >
                                       <span v-if="isLoading">
@@ -360,15 +354,20 @@
                                   <div class="modal-content">
                                     <div class="modal-header">
                                       <span
-                                        style="color: var(--color-blue-blue-06, #0F5392);
+                                        style="
+                                          color: var(
+                                            --color-blue-blue-06,
+                                            #0f5392
+                                          );
 
-/* Title 1 */
-font-family: Inter;
-font-size: 32px;
-font-style: normal;
-font-weight: 600;
-line-height: normal;
-letter-spacing: -0.32px;"
+                                          /* Title 1 */
+                                          font-family: Inter;
+                                          font-size: 32px;
+                                          font-style: normal;
+                                          font-weight: 600;
+                                          line-height: normal;
+                                          letter-spacing: -0.32px;
+                                        "
                                       >
                                         Detail Pengajuan
                                       </span>
@@ -379,15 +378,16 @@ letter-spacing: -0.32px;"
                                       >
                                         <span
                                           aria-hidden="true"
-                                          style="width: 30px; height: 30px; font-size: 30px;"
+                                          style="
+                                            width: 30px;
+                                            height: 30px;
+                                            font-size: 30px;
+                                          "
                                           >&times;</span
                                         >
                                       </button>
                                     </div>
-                                    <div
-                                      class="modal-body"
-                                      style="padding: 5%;"
-                                    >
+                                    <div class="modal-body" style="padding: 5%">
                                       <div>
                                         <v-row>
                                           <v-col cols="6" md="2">
@@ -458,15 +458,20 @@ letter-spacing: -0.32px;"
                                         <v-row
                                           ><v-col
                                             ><div
-                                              style="display: flex;
-width: 100%;
-flex-direction: column;
-justify-content: center;
-align-items: center;"
+                                              style="
+                                                display: flex;
+                                                width: 100%;
+                                                flex-direction: column;
+                                                justify-content: center;
+                                                align-items: center;
+                                              "
                                             >
                                               <div
                                                 class="ca"
-                                                style=" border-radius: 10px 10px 0px 0px;"
+                                                style="
+                                                  border-radius: 10px 10px 0px
+                                                    0px;
+                                                "
                                               >
                                                 <span class="text-card">
                                                   Tenor</span
@@ -474,9 +479,7 @@ align-items: center;"
                                               </div>
                                               <div class="cb">
                                                 <span class="text-card">
-                                                  <center>
-                                                    DP
-                                                  </center>
+                                                  <center>DP</center>
                                                 </span>
                                               </div>
                                               <div class="ca">
@@ -491,7 +494,10 @@ align-items: center;"
                                               </div> -->
                                               <div
                                                 class="cb"
-                                                style=" border-radius: 0px 0px 10px 10px;"
+                                                style="
+                                                  border-radius: 0px 0px 10px
+                                                    10px;
+                                                "
                                               >
                                                 <span class="text-card">
                                                   <center>
@@ -507,14 +513,23 @@ align-items: center;"
                                             v-for="data in angsuranData"
                                             :key="data.tenorTahun"
                                             ><div
-                                              style="display: flex;
-width: 100%;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-border-radius: 10px;
-border: 1px solid var(--color-blue-blue-06, #0F5392);
-background: var(--color-neutral-neutral-00, #FFF);"
+                                              style="
+                                                display: flex;
+                                                width: 100%;
+                                                flex-direction: column;
+                                                justify-content: center;
+                                                align-items: center;
+                                                border-radius: 10px;
+                                                border: 1px solid
+                                                  var(
+                                                    --color-blue-blue-06,
+                                                    #0f5392
+                                                  );
+                                                background: var(
+                                                  --color-neutral-neutral-00,
+                                                  #fff
+                                                );
+                                              "
                                             >
                                               <div class="ca1">
                                                 <span class="ta1">
@@ -554,28 +569,38 @@ background: var(--color-neutral-neutral-00, #FFF);"
                                               </div>
 
                                               <div
-                                                style="padding:5px;width:100%;"
+                                                style="
+                                                  padding: 5px;
+                                                  width: 100%;
+                                                "
                                               >
                                                 <button
                                                   type="submit"
                                                   @click="selectTenor(data)"
                                                   :disabled="loading"
-                                                  style="font-size: 16px;
-                    color:black;
-                    padding: 12px 20px;
-                    transition: all 0.5s;
-                    text-transform: capitalize;
-                    position: relative;
-                    border-radius: 5px;
-                    font-weight: 500;
-                    cursor: pointer;
-                    text-align: center;
-                    overflow: hidden;
-                    border: none;
-                    background: var(--color-yellow-yellow-05, #FBAB44);
-                    box-shadow: var(--box-shadow);
-                    z-index: 1;
-                    width: 100%;"
+                                                  style="
+                                                    font-size: 16px;
+                                                    color: black;
+                                                    padding: 12px 20px;
+                                                    transition: all 0.5s;
+                                                    text-transform: capitalize;
+                                                    position: relative;
+                                                    border-radius: 5px;
+                                                    font-weight: 500;
+                                                    cursor: pointer;
+                                                    text-align: center;
+                                                    overflow: hidden;
+                                                    border: none;
+                                                    background: var(
+                                                      --color-yellow-yellow-05,
+                                                      #fbab44
+                                                    );
+                                                    box-shadow: var(
+                                                      --box-shadow
+                                                    );
+                                                    z-index: 1;
+                                                    width: 100%;
+                                                  "
                                                 >
                                                   <span v-if="loading"
                                                     >Loading...</span
@@ -615,7 +640,11 @@ background: var(--color-neutral-neutral-00, #FFF);"
                                       >
                                         <span
                                           aria-hidden="true"
-                                          style="width: 30px; height: 30px; font-size: 30px;"
+                                          style="
+                                            width: 30px;
+                                            height: 30px;
+                                            font-size: 30px;
+                                          "
                                           >&times;</span
                                         >
                                       </button>
@@ -799,23 +828,25 @@ background: var(--color-neutral-neutral-00, #FFF);"
                                                 @click="klikButton"
                                                 type="submit"
                                                 style="
-                    font-size: 16px;
-                    color: var(--color-white);
-                    padding: 12px 20px;
-                    transition: all 0.5s;
-                    text-transform: capitalize;
-                    position: relative;
-                    border-radius: 13px;
-                    font-weight: 500;
-                    cursor: pointer;
-                    text-align: center;
-                    overflow: hidden;
-                    border: none;
-                    background: var(--theme-color);
-                    box-shadow: var(--box-shadow);
-                    z-index: 1;
-                    width: 100%;
-                  "
+                                                  font-size: 16px;
+                                                  color: var(--color-white);
+                                                  padding: 12px 20px;
+                                                  transition: all 0.5s;
+                                                  text-transform: capitalize;
+                                                  position: relative;
+                                                  border-radius: 13px;
+                                                  font-weight: 500;
+                                                  cursor: pointer;
+                                                  text-align: center;
+                                                  overflow: hidden;
+                                                  border: none;
+                                                  background: var(
+                                                    --theme-color
+                                                  );
+                                                  box-shadow: var(--box-shadow);
+                                                  z-index: 1;
+                                                  width: 100%;
+                                                "
                                               >
                                                 Ajukan Angsuran
                                               </button>
@@ -860,9 +891,7 @@ background: var(--color-neutral-neutral-00, #FFF);"
                               <!-- <h5 class="car-single-price">
                                 DURASI BERLANGGANAN
                               </h5> -->
-                              <h5 class="car-single-price">
-                                Tenor
-                              </h5>
+                              <h5 class="car-single-price">Tenor</h5>
                               <select
                                 class="nice-select"
                                 style="width: 100%"
@@ -870,9 +899,7 @@ background: var(--color-neutral-neutral-00, #FFF);"
                                 v-model="selectedDuration"
                                 @change="getTypeDataDuration()"
                               >
-                                <option value="">
-                                  Pilih Tenor
-                                </option>
+                                <option value="">Pilih Tenor</option>
                                 <option value="60">60 Bulan</option>
                                 <option value="48">48 Bulan</option>
                                 <option value="36">36 Bulan</option>
@@ -944,7 +971,7 @@ background: var(--color-neutral-neutral-00, #FFF);"
                                 <span
                                   class="fonsizeAmount"
                                   style="
-                                  color: #207ACE;
+                                    color: #207ace;
                                     font-size: 20px;
                                     font-weight: bold;
                                     padding: 0px;
@@ -975,7 +1002,7 @@ background: var(--color-neutral-neutral-00, #FFF);"
                               >
                                 <span
                                   style="
-                                    color: #1F1C1C;
+                                    color: #1f1c1c;
                                     font-size: 24px;
                                     font-weight: bold;
                                     padding: 0px 10px 0px 0px;
@@ -1021,25 +1048,25 @@ background: var(--color-neutral-neutral-00, #FFF);"
                                   @click="sewaModal"
                                   :disabled="isLoading"
                                   style="
-                font-size: 16px;
-                color: var(--color-white);
-                padding: 12px 20px;
-                transition: all 0.5s;
-                text-transform: capitalize;
-                position: relative;
-                border-radius: 13px;
-                font-weight: 500;
-                cursor: pointer;
-                text-align: center;
-                overflow: hidden;
-                border: none;
-                background: var(--theme-color);
-                box-shadow: var(--box-shadow);
-                z-index: 1;
-                width: 100%;
-              "
+                                    font-size: 16px;
+                                    color: var(--color-white);
+                                    padding: 12px 20px;
+                                    transition: all 0.5s;
+                                    text-transform: capitalize;
+                                    position: relative;
+                                    border-radius: 13px;
+                                    font-weight: 500;
+                                    cursor: pointer;
+                                    text-align: center;
+                                    overflow: hidden;
+                                    border: none;
+                                    background: var(--theme-color);
+                                    box-shadow: var(--box-shadow);
+                                    z-index: 1;
+                                    width: 100%;
+                                  "
                                 >
-                                  <div style="position: relative;">
+                                  <div style="position: relative">
                                     <span v-if="isLoading" class="loading-text"
                                       ><i
                                         class="fa-solid fa-spinner fa-spin-pulse"
@@ -1071,7 +1098,11 @@ background: var(--color-neutral-neutral-00, #FFF);"
                                   >
                                     <span
                                       aria-hidden="true"
-                                      style="width: 30px; height: 30px; font-size: 30px;"
+                                      style="
+                                        width: 30px;
+                                        height: 30px;
+                                        font-size: 30px;
+                                      "
                                       >&times;</span
                                     >
                                   </button>
@@ -1214,23 +1245,23 @@ background: var(--color-neutral-neutral-00, #FFF);"
                                           <button
                                             type="submit"
                                             style="
-        font-size: 16px;
-        color: var(--color-white);
-        padding: 12px 20px;
-        transition: all 0.5s;
-        text-transform: capitalize;
-        position: relative;
-        border-radius: 13px;
-        font-weight: 500;
-        cursor: pointer;
-        text-align: center;
-        overflow: hidden;
-        border: none;
-        background: var(--theme-color);
-        box-shadow: var(--box-shadow);
-        z-index: 1;
-        width: 100%;
-      "
+                                              font-size: 16px;
+                                              color: var(--color-white);
+                                              padding: 12px 20px;
+                                              transition: all 0.5s;
+                                              text-transform: capitalize;
+                                              position: relative;
+                                              border-radius: 13px;
+                                              font-weight: 500;
+                                              cursor: pointer;
+                                              text-align: center;
+                                              overflow: hidden;
+                                              border: none;
+                                              background: var(--theme-color);
+                                              box-shadow: var(--box-shadow);
+                                              z-index: 1;
+                                              width: 100%;
+                                            "
                                           >
                                             Ajukan Sewa
                                           </button>
@@ -1505,16 +1536,16 @@ export default {
       immediate: true,
     },
     dp: {
-      handler: function(newVal) {
+      handler: function (newVal) {
         this.uangMukaPersentase = this.calculatePersentase();
       },
       immediate: true, // Memastikan perhitungan awal saat halaman dimuat
     },
-    selectedTenor: function() {
+    selectedTenor: function () {
       // Panggil fetchData saat nilai selectedTenor berubah
       this.fetchData();
     },
-    apiResponse: function() {
+    apiResponse: function () {
       // Panggil fetchData saat nilai apiResponse berubah
       this.fetchData();
     },
@@ -1543,8 +1574,8 @@ Terima kasih,`;
       window.location.href = `https://wa.me/${this.whatsappNumber}?text=${encodedMessage}`;
     },
     submitAngsuran() {
-      const id_jauto_produk_grades = this.selectedPackage
-        .id_jauto_produk_grades;
+      const id_jauto_produk_grades =
+        this.selectedPackage.id_jauto_produk_grades;
       const fullName = this.displayedProfile.name;
       const whatsapp = this.displayedProfile.phoneNumber;
       const email = this.displayedProfile.email;
@@ -1638,8 +1669,7 @@ Terima kasih,`;
           if (data.success) {
             Swal.fire({
               title: "Pengajuan Berhasil!",
-              text:
-                "Terima kasih pengajuan Anda akan kami proses dan admin kami akan menghubungi Anda dalam 1 x 24 jam",
+              text: "Terima kasih pengajuan Anda akan kami proses dan admin kami akan menghubungi Anda dalam 1 x 24 jam",
               icon: "success",
               confirmButtonColor: "#0C5EAA",
             }).then(() => {
@@ -1965,12 +1995,12 @@ Terima kasih, ${fullName}`;
       document.body.innerHTML = printContent;
 
       // Tunggu beberapa saat sebelum mencetak
-      setTimeout(function() {
+      setTimeout(function () {
         window.print();
         document.body.innerHTML = originalContent;
 
         // Refresh halaman setelah mencetak
-        setTimeout(function() {
+        setTimeout(function () {
           location.reload();
         }, 1000); // Ubah waktu penundaan sesuai kebutuhan (dalam milidetik)
       }, 1000); // Ubah waktu penundaan sesuai kebutuhan (dalam milidetik)
@@ -2000,9 +2030,9 @@ Terima kasih, ${fullName}`;
       }
 
       // Loop melalui setiap elemen tabel
-      tableElements.forEach(function(tableElement, index) {
+      tableElements.forEach(function (tableElement, index) {
         // Konversi elemen tabel menjadi gambar menggunakan html2canvas
-        html2canvas(tableElement).then(function(canvas) {
+        html2canvas(tableElement).then(function (canvas) {
           var imgData = canvas.toDataURL("image/png");
 
           // Tambahkan gambar ke dokumen PDF
@@ -2129,9 +2159,10 @@ Terima kasih, ${fullName}`;
       ).toLocaleString("id-ID", { style: "currency", currency: "IDR" });
 
       // Menggunakan toLocaleString() pada variabel this.totalAngsuranPokok
-      this.totalAngsuranPokok = (
-        hasilAwal * jangkaWaktu
-      ).toLocaleString("id-ID", { style: "currency", currency: "IDR" });
+      this.totalAngsuranPokok = (hasilAwal * jangkaWaktu).toLocaleString(
+        "id-ID",
+        { style: "currency", currency: "IDR" }
+      );
 
       // Menggunakan toLocaleString() pada variabel this.totalTotalAngsuran
       this.totalTotalAngsuran = (
@@ -2147,8 +2178,8 @@ Terima kasih, ${fullName}`;
     },
     // Fungsi Submit Form Pengajuan pada sewa
     submitOrder() {
-      const id_jauto_produk_grades = this.selectedPackage
-        .id_jauto_produk_grades;
+      const id_jauto_produk_grades =
+        this.selectedPackage.id_jauto_produk_grades;
       const fullName = this.displayedProfile.name;
       const whatsapp = this.displayedProfile.phoneNumber;
       const email = this.displayedProfile.email;
@@ -2217,8 +2248,7 @@ Terima kasih, ${fullName}`;
           if (data.success) {
             Swal.fire({
               title: "Pengajuan Berhasil!",
-              text:
-                "Terima kasih pengajuan Anda akan kami proses dan admin kami akan menghubungi Anda dalam 1 x 24 jam",
+              text: "Terima kasih pengajuan Anda akan kami proses dan admin kami akan menghubungi Anda dalam 1 x 24 jam",
               icon: "success",
               confirmButtonColor: "#0C5EAA",
             }).then(() => {

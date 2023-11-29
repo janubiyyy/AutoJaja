@@ -58,10 +58,7 @@
       >
         <div class="container position-relative">
           <router-link :to="'/'" class="navbar-brand" style="width: 130px">
-            <img
-            src="../assets/img/about/warna-logo.png"
-              alt="logo"
-            />
+            <img src="../assets/img/about/warna-logo.png" alt="logo" />
           </router-link>
           <div class="mobile-menu-right">
             <!-- <div class="search-btn">
