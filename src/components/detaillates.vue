@@ -310,6 +310,7 @@
                                     >
                                       <option
                                         v-for="bank in banks"
+                                        :key="bank.id_bank"
                                         :value="bank.id_bank"
                                       >
                                         {{ bank.nama_bank }}
@@ -331,6 +332,7 @@
                                     >
                                       <option
                                         v-for="area in wilayah"
+                                        :key="area.id_wilayah"
                                         :value="area.id_wilayah"
                                       >
                                         {{ area.nama_wilayah }}
@@ -437,10 +439,9 @@
             <div class="container">
               <div class="row">
                 <div
-                  v-for="(c, index) in relatedCars"
+                  v-for="c in filteredRelatedCars"
                   :key="c.id"
                   class="col-xl"
-                  v-if="index < 4"
                 >
                   <div
                     class="wow fadeInUp"
@@ -554,6 +555,7 @@ export default {
   },
   data() {
     return {
+      relatedCars: [],
       savedSlug: localStorage.getItem("slug"),
       whatsappNumber: "6281990181108", //number untuk redirect ke whatsapp
       isLoading: false, //loading pada fungsi
@@ -596,6 +598,10 @@ export default {
     };
   },
   computed: {
+    filteredRelatedCars() {
+      // Adjust the condition based on your requirements
+      return this.relatedCars.slice(0, 4);
+    },
     productLink() {
       return `http://localhost:8080/#/detaillates/${this.savedSlug}`;
     },
