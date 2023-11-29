@@ -527,6 +527,7 @@ export default {
   },
   data() {
     return {
+      savedSlug: localStorage.getItem("slug"),
       whatsappNumber: "6281990181108", //number untuk redirect ke whatsapp
       isLoading: false, //loading pada fungsi
 
@@ -568,6 +569,27 @@ export default {
     };
   },
   computed: {
+    productLink() {
+      return `http://localhost:8080/#/detaillates/${this.savedSlug}`;
+    },
+    // Menghasilkan link untuk dibagikan melalui WhatsApp
+    whatsappLink() {
+      return `https://api.whatsapp.com/send?text=${encodeURIComponent(
+        this.productLink
+      )}`;
+    },
+    // Menghasilkan link untuk dibagikan melalui Facebook
+    facebookLink() {
+      return `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+        this.productLink
+      )}`;
+    },
+    // Menghasilkan link untuk dibagikan melalui Twitter
+    twitterLink() {
+      return `https://twitter.com/intent/tweet?url=${encodeURIComponent(
+        this.productLink
+      )}&text=Check%20out%20this%20awesome%20product!`;
+    },
     cleanedDescription() {
       return this.extractCVT(this.carDetail[0].deskripsi);
     },
@@ -581,6 +603,8 @@ export default {
   mounted() {
     // Mengambil slug dari localStorage
     const savedSlug = localStorage.getItem("slug");
+    const currentSlug = this.$route.params.slug;
+    localStorage.setItem("slug", currentSlug);
 
     if (savedSlug) {
       // Menggunakan slug yang disimpan untuk mengambil detail mobil
@@ -614,6 +638,19 @@ export default {
     }
   },
   methods: {
+    // Fungsi untuk berbagi di WhatsApp
+    shareOnWhatsApp() {
+      window.open(this.whatsappLink, "_blank");
+    },
+    // Fungsi untuk berbagi di Facebook
+    shareOnFacebook() {
+      window.open(this.facebookLink, "_blank");
+    },
+    // Fungsi untuk berbagi di Twitter
+    shareOnTwitter() {
+      window.open(this.twitterLink, "_blank");
+    },
+
     extractCVT(input) {
       // Extract only the text "CVT"
       const match = input.match(/CVT/i);
@@ -818,9 +855,12 @@ Terima kasih,`;
       }
     },
     async getCarDetail(slug) {
+      let id = this.$route.params.slug;
       try {
         const response = await fetch(
-          `https://api.jaja.id/jauto/produk/get_produk_detail?slug=${slug}`,
+          `https://api.jaja.id/jauto/produk/get_produk_detail?slug=${
+            !slug ? id : slug
+          }`,
           {
             method: "GET",
             headers: {
@@ -910,12 +950,16 @@ Terima kasih,`;
       // Hapus data detail mobil yang terkait dengan slug lama dari local storage
       localStorage.removeItem(`carDetail_${oldSlug}`);
 
+      // Cetak informasi URL saat ini ke console log
+      console.log("Current URL:", this.$route.fullPath);
+
       // Redirect ke halaman "detaillates" dengan slug dalam URL
       this.$router.push(`/detaillates/${carslug}`);
 
       // Me-refresh halaman
-      window.location.reload();
+      // window.location.reload();
     },
+
     updateHarga() {
       // Simpan tipe yang dipilih ke Local Storage
       localStorage.setItem("selectedType", this.selectedType);
@@ -1092,7 +1136,21 @@ Terima kasih,`;
     },
   },
   watch: {
-    // selectedColor: "changeImage", // Memanggil changeImage ketika selectedColor berubah
+    // Watch for changes in route parameters
+    $route(to, from) {
+      // Extract the slug from the new route
+      const newSlug = to.params.slug;
+
+      // Check if the slug has changed
+      if (newSlug !== this.slug) {
+        // Fetch the new data based on the updated slug
+        this.getCarDetail(newSlug);
+        this.getRelatedCars(newSlug);
+
+        // Update the current slug in the component's data
+        this.slug = newSlug;
+      }
+    },
   },
 };
 </script>

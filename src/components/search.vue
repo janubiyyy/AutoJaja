@@ -179,6 +179,7 @@
                         value="value"
                         placeholder="Pilih Jenis Kendaraan"
                         multiple
+                        :key="someUniqueKey"
                       ></v-select>
                     </div>
                   </div>
@@ -399,6 +400,7 @@ export default {
       itemsPerPage: 6,
       searchKeyword: "", // Parameter pencarian
       selectedMerek: [],
+      selectedJenis: [],
       selectedTransmisi: [],
       selectedBbm: "", // Parameter bbm
       selectedSeat: "", // Parameter seat

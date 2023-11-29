@@ -59,7 +59,7 @@
         <div class="container position-relative">
           <router-link :to="'/'" class="navbar-brand" style="width: 130px">
             <img
-              src="https://auto.jaja.id/img/Auto-Jaja.e79cd9fc.png"
+            src="../assets/img/about/warna-logo.png"
               alt="logo"
             />
           </router-link>

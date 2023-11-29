@@ -23,6 +23,7 @@ Vue.use(VueRouter);
 
 const router = new VueRouter({
   mode: 'history',
+
   routes: [
     {
       path: '/',
@@ -114,6 +115,7 @@ const router = new VueRouter({
       component: registeraca,
     },
   ],
+
 });
 
 // Fungsi middleware untuk memeriksa keberadaan token
