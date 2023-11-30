@@ -197,29 +197,26 @@
                         transition: var(--transition);
                       "
                     >
-                      <div class="car-img">
-                        <center>
-                          <img
-                            @click="selectBrand(brand)"
-                            :src="brand.logo"
-                            style="
-                              max-width: 100px;
-                              max-height: 70px;
-                              padding-top: 35px;
-                              object-fit: cover;
-                              justify-content: center;
-                              align-items: center;
-                              border-radius: 0;
-                            "
-                            alt=""
-                            @error="handleImageError"
-                          />
-                        </center>
+                      <div class="car-gambar">
+                        <img
+                          @click="selectBrand(brand)"
+                          :src="brand.logo"
+                          style="
+                            max-width: 100px;
+                            max-height: 70px;
+                            object-fit: cover;
+                            border-radius: 0;
+                          "
+                          alt=""
+                          @error="handleImageError"
+                        />
+
                         <div class="car-btns">
                           <a href="#"><i class="far fa-heart"></i></a>
                           <a href="#"><i class="far fa-arrows-repeat"></i></a>
                         </div>
                       </div>
+
                       <div class="car-content">
                         <div class="car-top">
                           <!-- <h4 style="text-align: center">
@@ -773,7 +770,7 @@
 <script>
 import navigation from "../components/backup";
 import foote from "../components/Footer";
-import VueFaqAccordion from "vue-faq-accordion";
+// import VueFaqAccordion from "vue-fsaq-accordion";
 import axios from "axios";
 import vSelect from "vue-select";
 import "vue-select/dist/vue-select.css"; // Import the CSS file for vue-select
@@ -1330,13 +1327,22 @@ export default {
   components: {
     navigation,
     foote,
-    VueFaqAccordion,
+    // VueFaqAccordion,
     vSelect,
   },
 };
 </script>
 
 <style scoped>
+.car-gambar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center; /* This centers the content horizontally */
+  height: 100%; /* Assuming you want the container to take up the full height */
+}
+
 .vs--searchable .vs__dropdown-toggle {
   height: 50px;
 }
