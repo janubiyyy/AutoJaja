@@ -37,6 +37,7 @@
                         <i class="far fa-eye"></i> Dilihat:
                         {{ carDetail[0].viewed }}
                       </li>
+
                       <div class="share-buttons">
                         <!-- Tombol Utama Share -->
                         <button
@@ -155,7 +156,9 @@
                   <h4 class="mb-3">Deskripsi</h4>
                   <hr />
                   <div class="mb-4" v-if="selectedType">
-                    <div v-html="carDetail[0].deskripsi"></div>
+                    <!-- <div v-html="carDetail[0].deskripsi"></div> -->
+                    <!-- <span>{{carDetail[0].deskripsi}}</span> -->
+                    <div v-html="sanitizeHTML(carDetail[0].deskripsi)"></div>
                   </div>
                 </div>
                 <!-- End Tampilan Spesifikasi dan Deskripsi Produk -->
@@ -603,7 +606,7 @@ export default {
       return this.relatedCars.slice(0, 4);
     },
     productLink() {
-      return `http://localhost:8080/#/detaillates/${this.savedSlug}`;
+      return `http://localhost:8080/detaillates/${this.savedSlug}`;
     },
     // Menghasilkan link untuk dibagikan melalui WhatsApp
     whatsappLink() {
@@ -681,25 +684,26 @@ export default {
     if (this.carType.length > 0) {
       // Ambil data pertama dari carType
       const firstType = this.carType[0];
-      this.selectedType = firstType.type; // Atur pemilihan awal pada select
+      this.selectedType = firstType.typeauto; // Atur pemilihan awal pada select
       this.updateHarga(); // Panggil metode updateHarga untuk menampilkan harga sesuai dengan data pertama
     }
   },
   methods: {
-    toggleShareOptions() {
-      this.showShareOptions = !this.showShareOptions;
+    sanitizeHTML(html) {
+      var doc = new DOMParser().parseFromString(html, "text/html");
+      var sanitizedHTML = doc.body.textContent || "";
+      return sanitizedHTML;
     },
     shareWhatsApp() {
       const link = this.generateShareLink();
       const productDescription = encodeURIComponent(
-        "Temukan keseruan baru dengan Mobil impian anda di Auto.jaja.id! "
+        "Temukan keseruan baru dengan Mobil impian anda di Auto.jaja.id!"
       );
       const whatsappLink = `https://wa.me/?text=${productDescription}%0A${encodeURIComponent(
         link
       )}`;
       window.open(whatsappLink, "_blank");
     },
-
     shareFacebook() {
       const link = this.generateShareLink();
       const productDescription = encodeURIComponent(
@@ -710,7 +714,6 @@ export default {
       )}&quote=${productDescription}`;
       window.open(facebookLink, "_blank");
     },
-
     copyLink() {
       const link = this.generateShareLink();
       const el = document.createElement("textarea");
@@ -721,10 +724,11 @@ export default {
       document.body.removeChild(el);
       alert("Link telah disalin!");
     },
-
     generateShareLink() {
-      // Menggunakan fullPath dari route untuk membuat link
       return `https://auto.jaja.id${this.$route?.fullPath}`;
+    },
+    toggleShareOptions() {
+      this.showShareOptions = !this.showShareOptions;
     },
     extractCVT(input) {
       // Extract only the text "CVT"

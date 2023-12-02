@@ -534,6 +534,7 @@ export default {
         jenis_name: this.selectedJenis
           ? this.selectedJenis.map((item) => item.label).join(",")
           : "",
+        //  length: 100,
         // jenis_name: this.selectedJenis ? this.selectedJenis[0].value : "",
       };
 
@@ -568,6 +569,7 @@ export default {
         jenis_name: this.selectedJenis
           ? this.selectedJenis.map((item) => item.label).join(",")
           : "",
+        // length: 100,
         // jenis_name: this.selectedJenis ? this.selectedJenis[0].value : "", // Add this line
       };
 
@@ -586,6 +588,8 @@ export default {
 
         if (data.success) {
           this.searchResults = data.data;
+
+          // console.log("iniiiihasil cari", this.searchResults);
 
           // Simpan hasil pencarian ke dalam Local Storage
           localStorage.setItem(
@@ -671,6 +675,7 @@ export default {
   },
 };
 </script>
+
 <style>
 .vs--searchable .vs__dropdown-toggle {
   height: 50px;

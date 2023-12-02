@@ -29,68 +29,82 @@ const router = new VueRouter({
       path: '/',
       name: 'Home',
       component: Home,
+      meta: { title: 'Home | Jaja Auto' }
     },
 
     {
       path: "/tentang",
       name: "Tentang",
       component: Tentang,
+      meta: { title: 'Tentang | Jaja Auto' }
     },
     {
       path: "/faq",
       name: "Faq",
       component: Faq,
+      meta: { title: 'FAQ | Jaja Auto' }
     },
 
     {
       path: "/rekomondasi",
       name: "Rekomondasi",
       component: Rekomondasi,
+      meta: { title: 'Rekomondasi Produk | Jaja Auto' }
     },
     {
       path: "/detail",
       name: "Detail",
       component: Detail,
+      meta: { title: 'Detail Produk | Jaja Auto' }
     },
     {
       path: "/detaillates/:slug",
       name: "DetailLates",
       component: DetailLates,
+      meta: { title: 'Detail Produk | Jaja Auto' }
     },
     {
       path: "/hasilangsuran/",
       name: "HasilAngsuran",
       component: HasilAngsuran,
+      meta: { title: 'Hasil Angsuran | Jaja Auto' }
     },
     {
       path: "/DetailAngsuran",
       name: "DetailAngsuran",
       component: DetailAngsuran,
+      meta: { title: 'Detail Angsuran | Jaja Auto' }
+      
     },
     {
       path: "/list",
       name: "List",
       component: List,
+      meta: { title: 'List Produk | Jaja Auto' }
     },
     {
       path: "/kebijakanprivasi",
       name: "KebijakanPrivasi",
       component: KebijakanPrivasi,
+      meta: { title: 'Kebijakan Privasi | Jaja Auto' }
     },
     {
       path: "/kategori",
       name: "Kategori",
       component: Kategori,
+      meta: { title: 'Kategori | Jaja Auto' }
     },
     {
       path: "/product",
       name: "Product",
       component: Product,
+      meta: { title: 'Produk | Jaja Auto' }
     },
     {
       path: "/search",
       name: "Search",
       component: Search,
+      meta: { title: 'Pencarian | Jaja Auto' }
     },
 
     {
@@ -103,16 +117,19 @@ const router = new VueRouter({
       path: "/home",
       name: "Home",
       component: HomeSection,
+      meta: { title: 'Home | Jaja Auto' }
     },
     {
       path: "/loginaca",
       name: "loginaca",
       component: loginaca,
+      meta: { title: 'Login | Jaja Auto' }
     },
     {
       path: "/registeraca",
       name: "registeraca",
       component: registeraca,
+      meta: { title: 'Registrasi | Jaja Auto' }
     },
   ],
 
@@ -131,14 +148,11 @@ const requireAuth = (to, from, next) => {
 };
 
 // Daftarkan middleware pada rute yang memerlukannya
+// Navigation guard to update the title on route change
 router.beforeEach((to, from, next) => {
-  if (to.matched.some((route) => route.meta.requiresAuth)) {
-    // Halaman memerlukan autentikasi, jalankan middleware requireAuth
-    requireAuth(to, from, next);
-  } else {
-    // Halaman tidak memerlukan autentikasi, izinkan akses
-    next();
-  }
+  document.title = to.meta.title || 'Jaja Auto'; // Set the title from the route's meta or a default value
+  next();
 });
+
 
 export default router;

@@ -138,6 +138,8 @@ body {
   box-sizing: border-box;
 }
 
+
+
 body {
   font-family: var(--body-font);
   font-style: normal;
@@ -694,6 +696,34 @@ label {
   z-index: 1;
 }
 
+.vs__selected {
+  align-items: center;
+  background-color: transparent !important;
+  border: var(--vs-selected-border-width) var(--vs-selected-border-style) var(--vs-selected-border-color);
+  border-radius: var(--vs-border-radius);
+  color: var(--vs-selected-color);
+  display: flex;
+  line-height: var(--vs-line-height);
+  /* margin: 4px 2px 0; */
+  padding: 0 0.25em;
+  z-index: 0;
+  height: 40px !important;
+}
+
+.vs__deselect {
+  fill: var(--vs-controls-color);
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  display: inline-flex;
+  margin-left: 4px;
+  padding-top: 10px !important;
+  text-shadow: var(--vs-controls--deselect-text-shadow);
+}
+
 .theme-btn::before {
   content: "";
   height: 300px;
@@ -742,6 +772,7 @@ label {
 ======================*/
 
 @media (min-width: 1200px) {
+
   .container,
   .container-sm,
   .container-md,
@@ -1754,6 +1785,7 @@ label {
   background: rgba(239, 23, 33, 0.05);
   color: var(--theme-color);
 }
+
 .custom-select-wrapper {
   position: relative;
   display: inline-block;
@@ -1769,7 +1801,8 @@ label {
   height: 0;
   border-left: 6px solid transparent;
   border-right: 6px solid transparent;
-  border-top: 6px solid #000; /* Ganti dengan warna ikon sesuai keinginan Anda */
+  border-top: 6px solid #000;
+  /* Ganti dengan warna ikon sesuai keinginan Anda */
   cursor: pointer;
 }
 
@@ -1808,6 +1841,7 @@ label {
   background: rgba(239, 23, 33, 0.05);
   color: var(--theme-color);
 }
+
 /*====================
 20. Find car css 
 ======================*/
@@ -5843,7 +5877,7 @@ body.rtl-mode .price-wrapper {
   border-radius: 8px;
 }
 
-.user-profile-card .table > :not(caption) > * > * {
+.user-profile-card .table> :not(caption)>*>* {
   vertical-align: middle;
   padding: 0.8rem 0.8rem;
 }
@@ -6713,11 +6747,9 @@ body.rtl-mode .price-wrapper {
 }
 
 .home-2 .hero-single::before {
-  background: linear-gradient(
-    to top left,
-    rgba(0, 0, 0, 0.5) 50%,
-    rgba(0, 0, 0, 1) 100%
-  );
+  background: linear-gradient(to top left,
+      rgba(0, 0, 0, 0.5) 50%,
+      rgba(0, 0, 0, 1) 100%);
   opacity: 1;
 }
 

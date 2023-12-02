@@ -82,6 +82,7 @@
                     <div class="form-group">
                       <label>Transmisi</label>
                       <!-- Transmisi Select -->
+
                       <v-select
                         v-model="selectedTransmisi"
                         :options="transmisiOptions"
@@ -353,10 +354,19 @@
                             >
                               <router-link :to="'/'">
                                 <img
-                                  src="https://auto.jaja.id/img/jajaauto.2391e51f.png"
-                                  style="width: 70px"
-                                  alt="" /></router-link
-                            ></v-chip>
+                                  src="../assets/img/homepage/badge.png"
+                                  style="width: 80px"
+                                  alt=""
+                              /></router-link>
+                              <span
+                                style="
+                                  color: white;
+                                  font-weight: 500;
+                                  font-size: 14px;
+                                "
+                                >Jaja Auto</span
+                              ></v-chip
+                            >
                           </v-col>
                           <v-col
                             style="
@@ -606,10 +616,20 @@
                             >
                               <router-link :to="'/'">
                                 <img
-                                  src="https://auto.jaja.id/img/jajaauto.2391e51f.png"
-                                  style="width: 70px"
-                                  alt="" /></router-link
-                            ></v-chip>
+                                  src="../assets/img/homepage/badge.png"
+                                  style="width: 80px"
+                                  alt=""
+                                />
+                              </router-link>
+                              <span
+                                style="
+                                  color: white;
+                                  font-weight: 500;
+                                  font-size: 14px;
+                                "
+                                >Jaja Auto</span
+                              ></v-chip
+                            >
                           </v-col>
                           <v-col
                             style="
@@ -782,7 +802,7 @@ export default {
       carData: [],
       carBrands: [],
       carJenis: [],
-      limit: 10,
+      limit: 1000,
       searchTerm: "",
       selectedMerek: "",
       selectedTransmisi: "",
@@ -1074,6 +1094,7 @@ export default {
         sort_by: this.selectedSortBy ? this.selectedSortBy.value : "",
         sort_order: this.selectedSortOrder ? this.selectedSortOrder.value : "",
         jenis_name: this.selectedJenis ? this.selectedJenis[0].value : "", // Add this line
+        //length: 100,
       };
 
       // Buat URL API dengan parameter yang telah dicek
@@ -1093,10 +1114,9 @@ export default {
           this.searchResults = data.data;
 
           // Simpan hasil pencarian ke dalam Local Storage
-          localStorage.setItem(
-            "searchResults",
-            JSON.stringify(this.searchResults)
-          );
+          // Simpan hasil pencarian ke dalam Local Storage
+          localStorage.setItem("searchResults", JSON.stringify(data.data));
+
           localStorage.setItem(
             "selectedMerek",
             JSON.stringify(this.selectedMerek)
@@ -1344,7 +1364,7 @@ export default {
 }
 
 .vs--searchable .vs__dropdown-toggle {
-  height: 50px;
+  height: 100px !important;
 }
 .custom-dropdown .dropdown-menu {
   max-height: 60px; /* Sesuaikan tinggi maksimal yang Anda inginkan */

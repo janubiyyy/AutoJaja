@@ -119,7 +119,7 @@ letter-spacing: 0.48px;"
           Rp {{ formatPrice(item.angsuran_bulanan).toLocaleString("id-ID", { style: "currency", currency: "IDR" }) }}
         </span>
       </div>
-      <div style="padding: 5px; width: 100%;">
+      <div style="padding: 5px; width: 100%;   padding-right: 15px;">
         <button type="submit" @click="selectTenor(index)" class="button">
           <span v-if="isLoading">
             <i class="fas fa-spinner fa-spin"></i>
@@ -621,6 +621,7 @@ export default {
   letter-spacing: 0.48px;
 }
 .button {
+  /* margin-right: 12px; */
   font-size: 16px;
   color: black;
   padding: 12px 20px;

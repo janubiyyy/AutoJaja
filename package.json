@@ -11,6 +11,7 @@
     "axios": "^1.4.0",
     "core-js": "^3.8.2",
     "deepai": "^1.0.17",
+    "dompurify": "^3.0.6",
     "firebase": "^7.24.0",
     "flickity": "^3.0.0",
     "hooper": "^0.3.4",
