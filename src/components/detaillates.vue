@@ -232,6 +232,90 @@
                     </v-radio-group>
                   </v-card>
                 </div>
+<!-- Fungsi untuk Seat Mobil -->
+<div v-if="carSeat.length > 0" class="form-group mt-5">
+  <h5 class="car-single-price">Seat Mobil</h5>
+  <v-card flat>
+    <v-radio-group v-model="selectedSeat" inline>
+      <v-row>
+        <v-col v-for="(seat, index) in carSeat" :key="index" cols="3">
+          <v-chip
+            :style="{
+              backgroundColor: seat.hexColorCode,
+              color: 'white',
+              border: '2px solid #4F4E4E',
+              outline:
+                selectedSeatIndex === index ? '2px solid #207ace' : 'none',
+              outlineOffset: '-2px',
+              width: '30px',
+              height: '30px',
+              borderRadius: '50%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: '12px',
+            }"
+            @click="changeSeatImage(seat.imagePath, seat.id, index)"
+          >
+          </v-chip>
+          <span style="font-size: 12px">{{ seat.colorName }}</span>
+        </v-col>
+      </v-row>
+    </v-radio-group>
+  </v-card>
+</div>
+
+<!-- Fungsi untuk Pilihan Velg Mobil -->
+<div v-if="carVelgOption.length > 0" class="form-group mt-5">
+  <h5 class="car-single-price">Pilihan Velg Mobil</h5>
+  <v-card flat>
+    <v-radio-group v-model="selectedVelgOption" inline>
+      <v-row>
+        <v-col v-for="(velgOption, index) in carVelgOption" :key="index" cols="3">
+          <div
+            @click="changeVelgOptionImage(velgOption.imagePath, velgOption.id, index)"
+            :class="{ 'selected-option': index === selectedVelgOptionIndex }"
+          >
+            <img
+              :src="velgOption.colorName"
+              style="width: 85px; height: auto; border-radius: 50%;"
+              alt="Velg Option Image"
+            />
+            <v-icon v-if="index === selectedVelgOptionIndex" class="check-icon">mdi-check</v-icon>
+          </div>
+        </v-col>
+      </v-row>
+    </v-radio-group>
+  </v-card>
+</div>
+
+<!-- Fungsi untuk Pilihan Velg Mobil Lengkap -->
+<div v-if="carVelg.length > 0" class="form-group mt-5">
+  <h5 class="car-single-price">Pilihan Velg Mobil Lengkap</h5>
+  <v-card flat>
+    <v-radio-group v-model="selectedVelg" inline>
+      <v-row>
+        <v-col v-for="(velg, index) in carVelg" :key="index" cols="3">
+          <div
+            @click="changeVelgImage(velg.imagePath, velg.id, index)"
+            :class="{ 'selected-option': index === selectedVelgIndex }"
+          >
+            <img
+              :src="velg.colorName"
+              style="width: 85px; height: auto; border-radius: 50%;"
+              alt="Velg Image"
+            />
+            <v-icon v-if="index === selectedVelgIndex" class="check-icon">mdi-check</v-icon>
+          </div>
+        </v-col>
+      </v-row>
+    </v-radio-group>
+  </v-card>
+</div>
+
+
+
+
                 <hr />
                 <!-- End Tampilan Warna Mobil -->
 
@@ -582,6 +666,17 @@ export default {
       carWarna: [],
       currentImagePath: "",
 
+      selectedSeat: null,
+    selectedVelgOption: null,
+    selectedVelg: null,
+    selectedSeatIndex: 0,
+    selectedVelgOptionIndex: 0,
+    selectedVelgIndex: 0,
+    carSeat: [],
+    carVelgOption: [],
+    carVelg: [],
+
+
       slug: "",
       carDetail: [],
       carType: [],
@@ -780,6 +875,7 @@ Terima kasih,`;
       const formatter = new Intl.NumberFormat("id-ID");
       return formatter.format(price);
     },
+
     selectFirstChip() {
       this.selectedChipIndex = 0;
       const firstImage = this.carWarna[0].images[0]; // Sesuaikan dengan struktur data Anda
@@ -789,6 +885,20 @@ Terima kasih,`;
       this.selectedChipIndex = index;
       this.loadImage(imagePath);
     },
+    changeSeatImage(imagePath, productImageId, index) {
+    this.selectedSeatIndex = index;
+    this.loadImage(imagePath);
+  },
+  // Fungsi untuk opsi velg (carVelgOption)
+  changeVelgOptionImage(imagePath, productImageId, index) {
+    this.selectedVelgOptionIndex = index;
+    this.loadImage(imagePath);
+  },
+  // Fungsi untuk velg (carVelg)
+  changeVelgImage(imagePath, productImageId, index) {
+    this.selectedVelgIndex = index;
+    this.loadImage(imagePath);
+  },
     loadImage(imagePath) {
       const image = new Image();
       image.src = imagePath;
@@ -975,6 +1085,9 @@ Terima kasih,`;
         if (data.success) {
           this.carDetail = data.data;
           this.carWarna = data.data[0].images;
+          this.carSeat= data.data[0].seat;
+          this.carVelgOption = data.data[0].velg_opt;
+          this.carVelg = data.data[0].velg;
 
           if (this.carWarna.length > 0) {
             // Ambil data pertama dari carWarna
@@ -1265,6 +1378,12 @@ Terima kasih,`;
   <meta name="description" :content="pageDescription">
 </head>
 <style>
+.selected-option {
+  border: 2px solid #207ace; /* Warna garis pinggir untuk menunjukkan opsi yang dipilih */
+  border-radius: 10%;
+}
+
+
 .share-buttons {
   display: flex;
   align-items: center;
