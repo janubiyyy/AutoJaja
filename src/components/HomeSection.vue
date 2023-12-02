@@ -15,7 +15,11 @@
           style="margin-top: 190px"
         >
           <v-carousel-item v-for="(slide, i) in slides" :key="i">
-            <v-img :src="slide.src" :alt="slide.alt" max-width="100%"></v-img>
+            <v-img
+              :src="slide.url_slider"
+              :alt="slide.alt"
+              max-width="100%"
+            ></v-img>
           </v-carousel-item>
         </v-carousel>
       </div>
@@ -830,11 +834,7 @@ export default {
       selectedCarModel: "", // Opsi yang dipilih untuk Car Models
       selectedPriceRange: "", // Opsi yang dipilih untuk Price Range
       isLoading: false, // Loading pada filter
-      slides: [
-        { src: require("../assets/img/homepage/bj1.jpg") },
-        { src: "https://auto.jaja.id/img/bj2.fb94b8ca.jpg" },
-        // { src: require("../assets/img/homepage/b3.png") },
-      ], //Gambar pada banner
+      slides: [],
       idcar: "", // ID detail produk
       slug: "",
       carModelSearch: "",
@@ -918,6 +918,7 @@ export default {
     // this.isLoggedIn = localStorage.getItem("token"); //Fungsi Halaman ini Harus Login
     this.fetchPopularCars();
     this.fetchLatestCars();
+    this.fetchSlider();
     // this.fetchCarItems(); //Fungsi Produk
     this.handledetail(slug); //Fungsi Memanggil ID detail produk
 
@@ -925,6 +926,27 @@ export default {
     searchInput.addEventListener("input", this.filterCars); //Fungsi Pencarian berdasarkan keyword
   },
   methods: {
+    async fetchSlider() {
+      try {
+        const response = await axios.get(
+          "https://api.jaja.id/jauto/produk/get_slider",
+          {
+            headers: {
+              Authorization: `Bearer ${process.env.VUE_APP_API_TOKEN}`,
+            },
+          }
+        );
+
+        if (response.data.success) {
+          this.slides = response.data.data.map((item) => ({
+            url_slider: item.url_slider,
+            alt: item.id_slider, // You can use a different property for alt text
+          }));
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    },
     performSearch() {
       this.isLoading = true;
 

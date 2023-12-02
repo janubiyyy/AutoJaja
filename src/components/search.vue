@@ -90,7 +90,7 @@
                         ></v-select>
                       </div>
 
-                      <div class="col-md-4 car-sort-box">
+                      <div class="col-md-4 car-sort-box" style="margin-top: -5px;">
                         <span
                           style="
                             color: white;
@@ -265,7 +265,7 @@
                         <center>
                           <img
                             :src="car.imagePath"
-                            style="height: 130px; image-fit: cover"
+                            style="height: 130px; object-fit: cover"
                             alt=""
                           />
                         </center>
@@ -275,6 +275,7 @@
                           <a href="#"><i class="far fa-arrows-repeat"></i></a>
                         </div>
                       </div>
+
                       <div class="car-content">
                         <div class="car-top">
                           <h4>
@@ -308,10 +309,20 @@
                             >
                               <router-link :to="'/'">
                                 <img
-                                  src="../assets/img/foot/jajaauto.png"
-                                  style="width: 70px"
-                                  alt="" /></router-link
-                            ></v-chip>
+                                  src="../assets/img/homepage/badge.png"
+                                  style="width: 80px"
+                                  alt=""
+                              /></router-link>
+                              <span
+                                style="
+                                  color: white;
+                                  font-weight: 500;
+                                  font-size: 14px;
+                                  margin-right: 5px;
+                                "
+                                >Jaja Auto</span
+                              ></v-chip
+                            >
                           </v-col>
                           <v-col
                             style="

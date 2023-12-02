@@ -158,7 +158,10 @@
                   <div class="mb-4" v-if="selectedType">
                     <!-- <div v-html="carDetail[0].deskripsi"></div> -->
                     <!-- <span>{{carDetail[0].deskripsi}}</span> -->
-                    <div v-html="sanitizeHTML(carDetail[0].deskripsi)"></div>
+                    <div
+                      v-html="sanitizeHTML(carDetail[0].deskripsi)"
+                      style="white-space: pre-line"
+                    ></div>
                   </div>
                 </div>
                 <!-- End Tampilan Spesifikasi dan Deskripsi Produk -->
@@ -505,10 +508,20 @@
                           >
                             <router-link :to="'/'">
                               <img
-                                src="https://auto.jaja.id/img/jajaauto.2391e51f.png"
-                                style="width: 70px"
-                                alt="" /></router-link
-                          ></v-chip>
+                                src="../assets/img/homepage/badge.png"
+                                style="width: 80px"
+                                alt=""
+                            /></router-link>
+                            <span
+                              style="
+                                color: white;
+                                font-weight: 500;
+                                font-size: 14px;
+                                margin-right: 5px;
+                              "
+                              >Jaja Auto</span
+                            ></v-chip
+                          >
                         </v-col>
                         <v-col
                           style="
@@ -689,11 +702,24 @@ export default {
     }
   },
   methods: {
+    // sanitizeHTML(html) {
+    //   var doc = new DOMParser().parseFromString(html, "text/html");
+    //   var sanitizedHTML = doc.body.textContent || "";
+    //   return sanitizedHTML;
+    // },
     sanitizeHTML(html) {
-      var doc = new DOMParser().parseFromString(html, "text/html");
-      var sanitizedHTML = doc.body.textContent || "";
-      return sanitizedHTML;
+      // Replace every occurrence of '&nbsp;' with a space
+      var cleanedHTML = html.replace(/&nbsp;/g, " ");
+
+      // Replace every occurrence of 'n' with an empty string
+      cleanedHTML = cleanedHTML.replace(/n/g, "");
+
+      // Replace multiple consecutive spaces with a single space
+      cleanedHTML = cleanedHTML.replace(/\s+/g, " ");
+
+      return cleanedHTML.trim(); // Trim any leading or trailing whitespaces
     },
+
     shareWhatsApp() {
       const link = this.generateShareLink();
       const productDescription = encodeURIComponent(
