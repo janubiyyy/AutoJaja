@@ -158,10 +158,10 @@
                   <div class="mb-4" v-if="selectedType">
                     <!-- <div v-html="carDetail[0].deskripsi"></div> -->
                     <!-- <span>{{carDetail[0].deskripsi}}</span> -->
-                    <div
-                      v-html="sanitizeHTML(carDetail[0].deskripsi)"
-                      style="white-space: pre-line"
-                    ></div>
+                    <div>
+    <div v-html="truncateText(carDetail[0].deskripsi)" style="white-space: pre-line"></div>
+    <span v-if="isTextTooLong && !showFullText" @click="showFullText = true" style="cursor: pointer; color: blue;">... Baca Selengkapnya</span>
+  </div>
                   </div>
                 </div>
                 <!-- End Tampilan Spesifikasi dan Deskripsi Produk -->
@@ -676,7 +676,8 @@ export default {
       carVelgOption: [],
       carVelg: [],
       filteredCarVelg: [],
-
+      showFullText: false,
+      maxTextLength: 370,
       slug: "",
       carDetail: [],
       carType: [],
@@ -709,6 +710,9 @@ export default {
     };
   },
   computed: {
+    isTextTooLong() {
+      return this.carDetail[0].deskripsi.length > this.maxTextLength;
+    },
     filteredCarVelg() {
       if (this.selectedColor) {
         return this.carVelg.filter(
@@ -811,6 +815,15 @@ export default {
     //   var sanitizedHTML = doc.body.textContent || "";
     //   return sanitizedHTML;
     // },
+    truncateText(html) {
+      let cleanedHTML = this.sanitizeHTML(html);
+
+      if (!this.showFullText && this.isTextTooLong) {
+        cleanedHTML = cleanedHTML.slice(0, this.maxTextLength) + '...';
+      }
+
+      return cleanedHTML.trim();
+    },
     sanitizeHTML(html) {
       // Replace every occurrence of '&nbsp;' with a space
       var cleanedHTML = html.replace(/&nbsp;/g, " ");
