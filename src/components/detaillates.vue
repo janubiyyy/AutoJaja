@@ -209,37 +209,53 @@
                           :key="index"
                           cols="2"
                         >
-                          <v-chip
-                            :style="{
-                              backgroundColor: image.hexColorCode,
-                              color: 'white',
-                              border: '2px solid #4F4E4E',
-                              outline:
-                                selectedChipIndex === index
-                                  ? '3px solid #207ace'
-                                  : 'none',
-                              outlineOffset: '-2px',
-                              width: '50px',
-                              height: '50px',
-                              borderRadius: '10%',
-                              display: 'flex',
-                              alignItems: 'center',
-                              justifyContent: 'center',
-                              fontSize: '12px',
-                            }"
-                            @click="
-                              changeImage(image.imagePath, image.id, index)
-                            "
-                          >
-                          </v-chip>
-                          <!-- <span style="font-size: 12px">{{
-                            image.colorName
-                          }}</span> -->
+                          <div class="chip-container">
+                            <div
+                              :style="{
+                                backgroundColor: image.hexColorCode,
+                                color: 'white',
+                                border: '2px solid #4F4E4E',
+                                outline:
+                                  selectedChipIndex === index
+                                    ? '3px solid #207ace'
+                                    : 'none',
+                                outlineOffset: '-2px',
+                                width: '50px',
+                                height: '50px',
+                                borderRadius: '10%',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                fontSize: '12px',
+                              }"
+                              @click="
+                                changeImage(image.imagePath, image.id, index)
+                              "
+                            >
+                              <v-icon
+                                v-if="
+                                  index === selectedChipIndex &&
+                                  (selectedColor !== null ||
+                                    selectedSeatIndex !== null)
+                                "
+                                class="check-icon"
+                                style="
+                                  float: right;
+                                  color: #207ace;
+                                  bottom: -40px;
+                                  right: -25px;
+                                "
+                              >
+                                mdi mdi-checkbox-marked-circle-outline
+                              </v-icon>
+                            </div>
+                          </div>
                         </v-col>
                       </v-row>
                     </v-radio-group>
                   </v-card>
                 </div>
+
                 <!-- Fungsi untuk Seat Mobil -->
                 <div v-if="carSeat.length > 0" class="form-group mt-5">
                   <h5 class="car-single-price">Interior</h5>
@@ -251,32 +267,47 @@
                           :key="index"
                           cols="2"
                         >
-                          <v-chip
-                            :style="{
-                              backgroundColor: seat.hexColorCode,
-                              color: 'white',
-                              border: '2px solid #4F4E4E',
-                              outline:
-                                selectedSeatIndex === index
-                                  ? '3px solid #207ace'
-                                  : 'none',
-                              outlineOffset: '-2px',
-                              width: '50px',
-                              height: '50px',
-                              borderRadius: '10%',
-                              display: 'flex',
-                              alignItems: 'center',
-                              justifyContent: 'center',
-                              fontSize: '12px',
-                            }"
-                            @click="
-                              changeSeatImage(seat.imagePath, seat.id, index)
-                            "
-                          >
-                          </v-chip>
-                          <!-- <span style="font-size: 12px; float: center">{{
-                            seat.colorName
-                          }}</span> -->
+                          <div class="chip-container">
+                            <div
+                              :style="{
+                                backgroundColor: seat.hexColorCode,
+                                color: 'white',
+                                border: '2px solid #4F4E4E',
+                                outline:
+                                  selectedSeatIndex === index
+                                    ? '3px solid #207ace'
+                                    : 'none',
+                                outlineOffset: '-2px',
+                                width: '50px',
+                                height: '50px',
+                                borderRadius: '10%',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                fontSize: '12px',
+                              }"
+                              @click="
+                                changeSeatImage(seat.imagePath, seat.id, index)
+                              "
+                            >
+                              <v-icon
+                                v-if="
+                                  index === selectedSeatIndex &&
+                                  (selectedColor !== null ||
+                                    selectedSeatIndex !== null)
+                                "
+                                class="check-icon"
+                                style="
+                                  float: right;
+                                  color: #207ace;
+                                  bottom: -40px;
+                                  right: -25px;
+                                "
+                              >
+                                mdi mdi-checkbox-marked-circle-outline
+                              </v-icon>
+                            </div>
+                          </div>
                         </v-col>
                       </v-row>
                     </v-radio-group>
@@ -669,7 +700,7 @@ export default {
       isLoading: false, //loading pada fungsi
       showShareOptions: false,
       // Warna dan image terbaru
-      selectedColor: null,
+
       selectedChipIndex: 0,
       carWarna: [],
       currentImagePath: "",
@@ -678,7 +709,8 @@ export default {
       selectedVelgOption: null,
       selectedVelg: null,
       selectedSeatIndex: 0,
-      selectedVelgOptionIndex: 0,
+      selectedColor: null,
+      selectedSeatIndex: null,
       selectedVelgIndex: null,
       carSeat: [],
       carVelgOption: [],
@@ -921,15 +953,13 @@ Terima kasih,`;
         (velg) => velg.hexColorCode === this.selectedColor
       );
 
-      // Set selectedVelgIndex ke null agar velg tidak ditampilkan saat pertama kali memilih warna
-      this.selectedVelgIndex = null;
-
       this.updateBothSelected();
     },
 
     changeSeatImage(imagePath, productImageId, index) {
       this.selectedSeatIndex = index;
       this.loadImage(imagePath);
+      this.updateBothSelected();
     },
     // Fungsi untuk opsi velg (carVelgOption)
     changeVelgOptionImage(imagePath, productImageId, index) {
@@ -952,7 +982,9 @@ Terima kasih,`;
     },
     updateBothSelected() {
       this.bothSelected =
-        this.selectedColor !== null && this.selectedVelgIndex !== null;
+        this.selectedColor !== null ||
+        this.selectedSeatIndex !== null ||
+        this.selectedVelgIndex !== null;
     },
 
     loadImage(imagePath) {
