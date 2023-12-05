@@ -219,9 +219,9 @@
                                   ? '3px solid #207ace'
                                   : 'none',
                               outlineOffset: '-2px',
-                              width: '30px',
-                              height: '30px',
-                              borderRadius: '50%',
+                              width: '50px',
+                              height: '50px',
+                              borderRadius: '10%',
                               display: 'flex',
                               alignItems: 'center',
                               justifyContent: 'center',
@@ -261,9 +261,9 @@
                                   ? '3px solid #207ace'
                                   : 'none',
                               outlineOffset: '-2px',
-                              width: '30px',
-                              height: '30px',
-                              borderRadius: '50%',
+                              width: '50px',
+                              height: '50px',
+                              borderRadius: '10%',
                               display: 'flex',
                               alignItems: 'center',
                               justifyContent: 'center',
@@ -304,14 +304,14 @@
                             <img
                               :src="velg.colorName"
                               style="
-                                width: 85px;
+                                width: 105px;
                                 height: auto;
                                 border-radius: 50%;
                               "
                               alt="Velg Image"
                             />
                             <v-icon
-                              v-if="index === selectedVelgIndex"
+                              v-if="index === selectedVelgIndex && bothSelected"
                               class="check-icon"
                               style="float: right; color: #207ace"
                             >
@@ -673,13 +673,13 @@ export default {
       selectedChipIndex: 0,
       carWarna: [],
       currentImagePath: "",
-
+      bothSelected: false,
       selectedSeat: null,
       selectedVelgOption: null,
       selectedVelg: null,
       selectedSeatIndex: 0,
       selectedVelgOptionIndex: 0,
-      selectedVelgIndex: 0,
+      selectedVelgIndex: null,
       carSeat: [],
       carVelgOption: [],
       carVelg: [],
@@ -921,8 +921,10 @@ Terima kasih,`;
         (velg) => velg.hexColorCode === this.selectedColor
       );
 
-      // Set selectedVelgIndex ke 0 agar velg pertama ditampilkan
-      this.selectedVelgIndex = 0;
+      // Set selectedVelgIndex ke null agar velg tidak ditampilkan saat pertama kali memilih warna
+      this.selectedVelgIndex = null;
+
+      this.updateBothSelected();
     },
 
     changeSeatImage(imagePath, productImageId, index) {
@@ -936,9 +938,23 @@ Terima kasih,`;
     },
     // Fungsi untuk velg (carVelg)
     changeVelgImage(imagePath, id, index) {
-      this.selectedVelgIndex = index;
-      this.loadImage(imagePath);
+      // Cek apakah velg yang dipilih sudah sama dengan yang sebelumnya
+      if (index === this.selectedVelgIndex) {
+        // Jika ya, hapus pemilihan
+        this.selectedVelgIndex = null;
+      } else {
+        // Jika tidak, pilih velg baru
+        this.selectedVelgIndex = index;
+        this.loadImage(imagePath);
+      }
+
+      this.updateBothSelected();
     },
+    updateBothSelected() {
+      this.bothSelected =
+        this.selectedColor !== null && this.selectedVelgIndex !== null;
+    },
+
     loadImage(imagePath) {
       const image = new Image();
       image.src = imagePath;
