@@ -159,9 +159,17 @@
                     <!-- <div v-html="carDetail[0].deskripsi"></div> -->
                     <!-- <span>{{carDetail[0].deskripsi}}</span> -->
                     <div>
-    <div v-html="truncateText(carDetail[0].deskripsi)" style="white-space: pre-line"></div>
-    <span v-if="isTextTooLong && !showFullText" @click="showFullText = true" style="cursor: pointer; color: blue;">... Baca Selengkapnya</span>
-  </div>
+                      <div
+                        v-html="truncateText(carDetail[0].deskripsi)"
+                        style="white-space: pre-line"
+                      ></div>
+                      <span
+                        v-if="isTextTooLong && !showFullText"
+                        @click="showFullText = true"
+                        style="cursor: pointer; color: blue"
+                        >... Baca Selengkapnya</span
+                      >
+                    </div>
                   </div>
                 </div>
                 <!-- End Tampilan Spesifikasi dan Deskripsi Produk -->
@@ -211,8 +219,8 @@
                                   ? '3px solid #207ace'
                                   : 'none',
                               outlineOffset: '-2px',
-                              width: '50px',
-                              height: '50px',
+                              width: '30px',
+                              height: '30px',
                               borderRadius: '50%',
                               display: 'flex',
                               alignItems: 'center',
@@ -224,9 +232,9 @@
                             "
                           >
                           </v-chip>
-                          <span style="font-size: 12px">{{
+                          <!-- <span style="font-size: 12px">{{
                             image.colorName
-                          }}</span>
+                          }}</span> -->
                         </v-col>
                       </v-row>
                     </v-radio-group>
@@ -253,8 +261,8 @@
                                   ? '3px solid #207ace'
                                   : 'none',
                               outlineOffset: '-2px',
-                              width: '50px',
-                              height: '50px',
+                              width: '30px',
+                              height: '30px',
                               borderRadius: '50%',
                               display: 'flex',
                               alignItems: 'center',
@@ -266,9 +274,9 @@
                             "
                           >
                           </v-chip>
-                          <span style="font-size: 12px; float: center">{{
+                          <!-- <span style="font-size: 12px; float: center">{{
                             seat.colorName
-                          }}</span>
+                          }}</span> -->
                         </v-col>
                       </v-row>
                     </v-radio-group>
@@ -819,7 +827,7 @@ export default {
       let cleanedHTML = this.sanitizeHTML(html);
 
       if (!this.showFullText && this.isTextTooLong) {
-        cleanedHTML = cleanedHTML.slice(0, this.maxTextLength) + '...';
+        cleanedHTML = cleanedHTML.slice(0, this.maxTextLength) + "...";
       }
 
       return cleanedHTML.trim();
@@ -835,8 +843,8 @@ export default {
       cleanedHTML = cleanedHTML.replace(/\s+/g, " ");
 
       return cleanedHTML.trim(); // Trim any leading or trailing whitespaces
+      // Trim any leading or trailing whitespaces
     },
-
     shareWhatsApp() {
       const link = this.generateShareLink();
       const productDescription = encodeURIComponent(
