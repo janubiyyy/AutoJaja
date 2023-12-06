@@ -76,7 +76,7 @@
                             <center>
                               <img
                                 :src="currentImagePath"
-                                style="height: 380px; image-fit: cover"
+                                style="height: auto; image-fit: cover"
                                 alt="Selected Image"
                               />
                             </center>
@@ -89,7 +89,9 @@
                 <!-- End Tampilan Image dan judul produk -->
 
                 <!-- Start Tampilan Spesifikasi dan Deskripsi Produk -->
-                <div class="car-single-widget">
+                <div
+                  class="car-single-widget d-none d-md-none d-lg-block d-xl-block"
+                >
                   <h4 class="mb-4">Spesifikasi</h4>
                   <hr />
                   <div class="car-key-info">
@@ -172,6 +174,391 @@
                     </div>
                   </div>
                 </div>
+                <div class="car-single-widget d-md-block d-lg-none d-xl-none">
+                  <!-- Start Tampilan Harga Produk -->
+                  <div class="hargaotr">
+                    <h5 class="car-single-price">Harga OTR</h5>
+                    <span
+                      class="mt-5"
+                      style="
+                        color: #1f1c1c;
+                        font-size: 34px;
+                        font-weight: bold;
+                        padding: 0px 10px 0px 0px;
+                      "
+                      v-if="selectedType"
+                    >
+                      Rp {{ formatPrice(harga) }}
+                    </span>
+                  </div>
+                  <!-- End Tampilan Harga Produk -->
+
+                  <!-- Start Tampilan Warna Mobil -->
+                  <div class="form-group mt-5">
+                    <h5 class="car-single-price">Warna</h5>
+                    <v-card flat>
+                      <v-radio-group v-model="selectedColor" inline>
+                        <v-row>
+                          <v-col
+                            v-for="(image, index) in carWarna"
+                            :key="index"
+                            cols="2"
+                          >
+                            <div class="chip-container">
+                              <div
+                                :style="{
+                                  backgroundColor: image.hexColorCode,
+                                  color: 'white',
+                                  border: '2px solid #4F4E4E',
+                                  outline:
+                                    selectedChipIndex === index
+                                      ? '3px solid #207ace'
+                                      : 'none',
+                                  outlineOffset: '-2px',
+                                  width: '40px',
+                                  height: '40px',
+                                  borderRadius: '10%',
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'center',
+                                  fontSize: '12px',
+                                }"
+                                @click="
+                                  changeImage(image.imagePath, image.id, index)
+                                "
+                              >
+                                <v-icon
+                                  v-if="
+                                    index === selectedChipIndex &&
+                                    (selectedColor !== null ||
+                                      selectedSeatIndex !== null)
+                                  "
+                                  class="check-icon"
+                                  style="
+                                    float: right;
+                                    color: #207ace;
+                                    bottom: -30px;
+                                    right: -25px;
+                                    font-size: 18px;
+                                  "
+                                >
+                                  mdi mdi-checkbox-marked-circle-outline
+                                </v-icon>
+                              </div>
+                            </div>
+                          </v-col>
+                        </v-row>
+                      </v-radio-group>
+                    </v-card>
+                  </div>
+                  <!-- Fungsi untuk Pilihan Velg Mobil Lengkap -->
+                  <div v-if="carVelg.length > 0" class="form-group mt-5">
+                    <h5 class="car-single-price">Velg</h5>
+                    <v-card flat>
+                      <v-radio-group v-model="selectedVelg" inline>
+                        <v-row>
+                          <v-col
+                            v-for="(velg, index) in filteredCarVelg"
+                            :key="index"
+                            cols="2"
+                          >
+                            <div
+                              @click="
+                                changeVelgImage(velg.imagePath, velg.id, index)
+                              "
+                              :class="{
+                                'selected-option': index === selectedVelgIndex,
+                              }"
+                            >
+                              <img
+                                :src="velg.colorName"
+                                style="
+                                  width: 120px;
+                                  height: auto;
+                                  border-radius: 50%;
+                                "
+                                alt="Velg Image"
+                              />
+                              <v-icon
+                                v-if="
+                                  index === selectedVelgIndex && bothSelected
+                                "
+                                class="check-icon"
+                                style="
+                                  float: right;
+                                  color: #207ace;
+                                  font-size: 18px;
+                                "
+                              >
+                                mdi mdi-checkbox-marked-circle-outline
+                              </v-icon>
+                            </div>
+                          </v-col>
+                        </v-row>
+                      </v-radio-group>
+                    </v-card>
+                  </div>
+                  <!-- Fungsi untuk Seat Mobil -->
+                  <div v-if="carSeat.length > 0" class="form-group mt-5">
+                    <h5 class="car-single-price">Interior</h5>
+                    <v-card flat>
+                      <v-radio-group v-model="selectedSeat" inline>
+                        <v-row>
+                          <v-col
+                            v-for="(seat, index) in carSeat"
+                            :key="index"
+                            cols="2"
+                          >
+                            <div class="chip-container">
+                              <div
+                                :style="{
+                                  backgroundColor: seat.hexColorCode,
+                                  color: 'white',
+                                  border: '2px solid #4F4E4E',
+                                  outline:
+                                    selectedSeatIndex === index
+                                      ? '3px solid #207ace'
+                                      : 'none',
+                                  outlineOffset: '-2px',
+                                  width: '40px',
+                                  height: '40px',
+                                  borderRadius: '10%',
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'center',
+                                  fontSize: '12px',
+                                }"
+                                @click="
+                                  changeSeatImage(
+                                    seat.imagePath,
+                                    seat.id,
+                                    index
+                                  )
+                                "
+                              >
+                                <v-icon
+                                  v-if="
+                                    index === selectedSeatIndex &&
+                                    (selectedColor !== null ||
+                                      selectedSeatIndex !== null)
+                                  "
+                                  style="
+                                    float: right;
+                                    color: #207ace;
+                                    bottom: -30px;
+                                    right: -25px;
+                                    font-size: 18px;
+                                  "
+                                >
+                                  mdi mdi-checkbox-marked-circle-outline
+                                </v-icon>
+                              </div>
+                            </div>
+                          </v-col>
+                        </v-row>
+                      </v-radio-group>
+                    </v-card>
+                  </div>
+                  <hr />
+                  <!-- End Tampilan Warna Mobil -->
+
+                  <!-- Tampilan Tabs Angsuran dan Sewa -->
+                  <v-tabs
+                    v-model="activeTab"
+                    fixed-tabs
+                    bg-color=""
+                    color="deep-purple-accent-4"
+                    align-tabs="center"
+                    style="color: #0c5eaa"
+                  >
+                    <v-tab style="color: #0c5eaa"> Angsuran </v-tab>
+                    <v-tab style="color: #0c5eaa"> Sewa </v-tab>
+
+                    <!-- Start Tampilan Angsuran -->
+                    <v-tab-item>
+                      <v-card>
+                        <v-card-text>
+                          <div class="form-group mt-5">
+                            <div class="form-group mt-5">
+                              <!-- Start Tampilan Tipe, DP, MITRA, WILAYAH -->
+                              <div class="tipe">
+                                <v-row class="mt-5">
+                                  <v-col cols="12">
+                                    <h5 class="car-single-price">Tipe Mobil</h5>
+                                    <div class="custom-select-wrapper">
+                                      <select
+                                        class="nice-select"
+                                        style="width: 100%"
+                                        v-model="selectedType"
+                                        @change="updateHarga"
+                                      >
+                                        <option value="">Pilihan Tipe</option>
+                                        <option
+                                          v-for="grade in carType"
+                                          :key="grade.id"
+                                          :value="grade.type"
+                                        >
+                                          {{ grade.type }}
+                                        </option>
+                                      </select>
+
+                                      <div class="custom-select-arrow"></div>
+                                    </div>
+                                  </v-col>
+                                </v-row>
+
+                                <v-row class="mt-5">
+                                  <v-col cols="8">
+                                    <h5 class="car-single-price">DP (Rp)</h5>
+                                    <input
+                                      type="text"
+                                      class="nice-input"
+                                      style="width: 100%"
+                                      v-model="dp"
+                                      @input="handleRpInput"
+                                      placeholder="Masukkan dalam Rp"
+                                    />
+                                  </v-col>
+                                  <v-col cols="4">
+                                    <h5 class="car-single-price">%</h5>
+                                    <input
+                                      type="text"
+                                      class="nice-input"
+                                      style="width: 100%"
+                                      v-model="uangMukaPersentase"
+                                      @input="handlePersentaseInput"
+                                      placeholder=" Min 20%"
+                                    />
+                                  </v-col>
+                                </v-row>
+
+                                <v-row class="mt-5">
+                                  <v-col cols="12">
+                                    <h5 class="car-single-price">Mitra</h5>
+                                    <div class="custom-select-wrapper">
+                                      <select
+                                        class="nice-select"
+                                        v-model="selectedMitra"
+                                        @change="fetchData"
+                                      >
+                                        <option
+                                          v-for="bank in banks"
+                                          :key="bank.id_bank"
+                                          :value="bank.id_bank"
+                                        >
+                                          {{ bank.nama_bank }}
+                                        </option>
+                                      </select>
+                                      <div class="custom-select-arrow"></div>
+                                    </div>
+                                  </v-col>
+                                </v-row>
+
+                                <v-row class="mt-5">
+                                  <v-col cols="12">
+                                    <h5 class="car-single-price">Wilayah</h5>
+                                    <div class="custom-select-wrapper">
+                                      <select
+                                        class="nice-select"
+                                        v-model="selectedWilayah"
+                                        @change="fetchData"
+                                      >
+                                        <option
+                                          v-for="area in wilayah"
+                                          :key="area.id_wilayah"
+                                          :value="area.id_wilayah"
+                                        >
+                                          {{ area.nama_wilayah }}
+                                        </option>
+                                      </select>
+                                      <div class="custom-select-arrow"></div>
+                                    </div>
+                                  </v-col>
+                                </v-row>
+                              </div>
+                              <!-- End Tampilan Tipe, DP, MITRA, WILAYAH -->
+
+                              <!-- Start Tampilan Button Hitung Angsuran -->
+                              <v-row class="mt-5">
+                                <v-col cols="12">
+                                  <div>
+                                    <button
+                                      @click="fetchSimulasi"
+                                      type="submit"
+                                      class="button-angsuran"
+                                    >
+                                      <span v-if="isLoading">
+                                        <i class="fas fa-spinner fa-spin"></i>
+                                        Loading...
+                                      </span>
+                                      <span v-else>Hitung Angsuran</span>
+                                    </button>
+                                  </div>
+                                </v-col>
+                              </v-row>
+                              <!-- End Tampilan Button Hitung Angsuran -->
+                            </div>
+                          </div>
+                        </v-card-text>
+                      </v-card>
+                    </v-tab-item>
+                    <!-- End Tampilan Angsuran -->
+
+                    <!-- Start Tampilan Sewa -->
+                    <v-tab-item>
+                      <v-card>
+                        <v-card-text>
+                          <div class="form-group mt-5">
+                            <div class="form-group mt-5">
+                              <div class="tipe">
+                                <v-row class="mt-5">
+                                  <v-col cols="12">
+                                    <h5 class="car-single-price">Tipe Mobil</h5>
+                                    <div class="custom-select-wrapper">
+                                      <select
+                                        class="nice-select"
+                                        style="width: 100%"
+                                        v-model="selectedType"
+                                        @change="updateHarga"
+                                      >
+                                        <option value="">Pilihan Tipe</option>
+                                        <option
+                                          v-for="grade in carType"
+                                          :key="grade.id"
+                                          :value="grade.type"
+                                        >
+                                          {{ grade.type }}
+                                        </option>
+                                      </select>
+
+                                      <div class="custom-select-arrow"></div>
+                                    </div>
+                                  </v-col>
+                                </v-row>
+
+                                <!-- Elemen HTML untuk Menampilkan Hasil Simulasi -->
+                              </div>
+                              <v-row class="mt-5">
+                                <v-col cols="12">
+                                  <div>
+                                    <button
+                                      type="submit"
+                                      @click="klikButton"
+                                      class="button-angsuran"
+                                    >
+                                      Ajukan Sewa
+                                    </button>
+                                  </div>
+                                </v-col>
+                              </v-row>
+                            </div>
+                          </div>
+                        </v-card-text>
+                      </v-card>
+                    </v-tab-item>
+                    <!-- End Tampilan Sewa -->
+                  </v-tabs>
+                </div>
                 <!-- End Tampilan Spesifikasi dan Deskripsi Produk -->
               </div>
             </div>
@@ -179,7 +566,9 @@
 
             <!-- Start column Harga -->
             <div class="col-lg-4">
-              <div class="car-single-widget">
+              <div
+                class="car-single-widget d-none d-md-none d-lg-block d-xl-block"
+              >
                 <!-- Start Tampilan Harga Produk -->
                 <div class="hargaotr">
                   <h5 class="car-single-price">Harga OTR</h5>
@@ -220,8 +609,8 @@
                                     ? '3px solid #207ace'
                                     : 'none',
                                 outlineOffset: '-2px',
-                                width: '50px',
-                                height: '50px',
+                                width: '40px',
+                                height: '40px',
                                 borderRadius: '10%',
                                 display: 'flex',
                                 alignItems: 'center',
@@ -242,13 +631,60 @@
                                 style="
                                   float: right;
                                   color: #207ace;
-                                  bottom: -40px;
+                                  bottom: -30px;
                                   right: -25px;
+                                  font-size: 18px;
                                 "
                               >
                                 mdi mdi-checkbox-marked-circle-outline
                               </v-icon>
                             </div>
+                          </div>
+                        </v-col>
+                      </v-row>
+                    </v-radio-group>
+                  </v-card>
+                </div>
+
+                <!-- Fungsi untuk Pilihan Velg Mobil Lengkap -->
+                <div v-if="carVelg.length > 0" class="form-group mt-5">
+                  <h5 class="car-single-price">Velg</h5>
+                  <v-card flat>
+                    <v-radio-group v-model="selectedVelg" inline>
+                      <v-row>
+                        <v-col
+                          v-for="(velg, index) in filteredCarVelg"
+                          :key="index"
+                          cols="2"
+                        >
+                          <div
+                            @click="
+                              changeVelgImage(velg.imagePath, velg.id, index)
+                            "
+                            :class="{
+                              'selected-option': index === selectedVelgIndex,
+                            }"
+                          >
+                            <img
+                              :src="velg.colorName"
+                              style="
+                                width: 120px;
+                                height: auto;
+                                border-radius: 50%;
+                              "
+                              alt="Velg Image"
+                            />
+                            <v-icon
+                              v-if="index === selectedVelgIndex && bothSelected"
+                              class="check-icon"
+                              style="
+                                float: right;
+                                color: #207ace;
+                                font-size: 18px;
+                              "
+                            >
+                              mdi mdi-checkbox-marked-circle-outline
+                            </v-icon>
                           </div>
                         </v-col>
                       </v-row>
@@ -278,8 +714,8 @@
                                     ? '3px solid #207ace'
                                     : 'none',
                                 outlineOffset: '-2px',
-                                width: '50px',
-                                height: '50px',
+                                width: '40px',
+                                height: '40px',
                                 borderRadius: '10%',
                                 display: 'flex',
                                 alignItems: 'center',
@@ -296,12 +732,12 @@
                                   (selectedColor !== null ||
                                     selectedSeatIndex !== null)
                                 "
-                                class="check-icon"
                                 style="
                                   float: right;
                                   color: #207ace;
-                                  bottom: -40px;
+                                  bottom: -30px;
                                   right: -25px;
+                                  font-size: 18px;
                                 "
                               >
                                 mdi mdi-checkbox-marked-circle-outline
@@ -313,48 +749,6 @@
                     </v-radio-group>
                   </v-card>
                 </div>
-                <!-- Fungsi untuk Pilihan Velg Mobil Lengkap -->
-                <div v-if="carVelg.length > 0" class="form-group mt-5">
-                  <h5 class="car-single-price">Velg</h5>
-                  <v-card flat>
-                    <v-radio-group v-model="selectedVelg" inline>
-                      <v-row>
-                        <v-col
-                          v-for="(velg, index) in filteredCarVelg"
-                          :key="index"
-                          cols="2"
-                        >
-                          <div
-                            @click="
-                              changeVelgImage(velg.imagePath, velg.id, index)
-                            "
-                            :class="{
-                              'selected-option': index === selectedVelgIndex,
-                            }"
-                          >
-                            <img
-                              :src="velg.colorName"
-                              style="
-                                width: 105px;
-                                height: auto;
-                                border-radius: 50%;
-                              "
-                              alt="Velg Image"
-                            />
-                            <v-icon
-                              v-if="index === selectedVelgIndex && bothSelected"
-                              class="check-icon"
-                              style="float: right; color: #207ace"
-                            >
-                              mdi mdi-checkbox-marked-circle-outline
-                            </v-icon>
-                          </div>
-                        </v-col>
-                      </v-row>
-                    </v-radio-group>
-                  </v-card>
-                </div>
-
                 <hr />
                 <!-- End Tampilan Warna Mobil -->
 
@@ -554,6 +948,89 @@
                   </v-tab-item>
                   <!-- End Tampilan Sewa -->
                 </v-tabs>
+              </div>
+              <div class="car-single-widget d-md-block d-lg-none d-xl-none">
+                <h4 class="mb-4">Spesifikasi</h4>
+                <hr />
+                <div class="car-key-info">
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 col-6">
+                      <div class="car-key-item">
+                        <div class="car-key-icon">
+                          <i class="flaticon-settings"></i>
+                        </div>
+                        <div class="car-key-content">
+                          <span>Body Type</span>
+                          <h6>{{ type }}</h6>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-6">
+                      <div class="car-key-item">
+                        <div class="car-key-icon">
+                          <i class="flaticon-speedometer"></i>
+                        </div>
+                        <div class="car-key-content">
+                          <span>CC</span>
+                          <h6>{{ spesifikasi }}</h6>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-6">
+                      <div class="car-key-item">
+                        <div class="car-key-icon">
+                          <i class="flaticon-gas-station"></i>
+                        </div>
+                        <div class="car-key-content">
+                          <span>Mileage</span>
+                          <h6>{{ listrikNonListrik }}/ {{ bbm }}</h6>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-6">
+                      <div class="car-key-item">
+                        <div class="car-key-icon">
+                          <i class="flaticon-drive"></i>
+                        </div>
+                        <div class="car-key-content" ref="resultsContainer">
+                          <span>Seat</span>
+                          <h6>{{ seat }}</h6>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-6">
+                      <div class="car-key-item">
+                        <div class="car-key-icon">
+                          <i class="flaticon-drive"></i>
+                        </div>
+                        <div class="car-key-content" ref="resultsContainer">
+                          <span>Jenis</span>
+                          <h6>{{ carDetail[0].jenis_name }}</h6>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <br />
+
+                <h4 class="mb-3">Deskripsi</h4>
+                <hr />
+                <div class="mb-4" v-if="selectedType">
+                  <!-- <div v-html="carDetail[0].deskripsi"></div> -->
+                  <!-- <span>{{carDetail[0].deskripsi}}</span> -->
+                  <div>
+                    <div
+                      v-html="truncateText(carDetail[0].deskripsi)"
+                      style="white-space: pre-line"
+                    ></div>
+                    <span
+                      v-if="isTextTooLong && !showFullText"
+                      @click="showFullText = true"
+                      style="cursor: pointer; color: blue"
+                      >... Baca Selengkapnya</span
+                    >
+                  </div>
+                </div>
               </div>
             </div>
           </div>

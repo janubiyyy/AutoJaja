@@ -90,7 +90,10 @@
                         ></v-select>
                       </div>
 
-                      <div class="col-md-4 car-sort-box" style="margin-top: -5px;">
+                      <div
+                        class="col-md-4 car-sort-box"
+                        style="margin-top: -5px"
+                      >
                         <span
                           style="
                             color: white;
@@ -265,7 +268,11 @@
                         <center>
                           <img
                             :src="car.imagePath"
-                            style="height: 130px; object-fit: cover"
+                            style="
+                              height: 130px;
+                              object-fit: cover;
+                              padding: 20px;
+                            "
                             alt=""
                           />
                         </center>
