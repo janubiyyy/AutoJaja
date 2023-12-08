@@ -60,7 +60,7 @@
                             placeholder="Search"
                           />
                           <!-- Only update the click event for the button -->
-                          <button type="button" @click="performSearch">
+                          <button type="button" @click="searchCars">
                             <i class="far fa-search"></i>
                           </button>
                         </div>
@@ -1035,6 +1035,7 @@ export default {
         jenis_name: this.selectedJenis
           ? this.selectedJenis.map((item) => item.label).join(",")
           : "",
+        search: this.searchTerm,
         // jenis_name: this.selectedJenis ? this.selectedJenis[0].value : "",
       };
 
@@ -1116,6 +1117,7 @@ export default {
         sort_by: this.selectedSortBy ? this.selectedSortBy.value : "",
         sort_order: this.selectedSortOrder ? this.selectedSortOrder.value : "",
         jenis_name: this.selectedJenis ? this.selectedJenis[0].value : "", // Add this line
+        search: this.searchTerm,
         //length: 100,
       };
 

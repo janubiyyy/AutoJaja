@@ -10,7 +10,7 @@
                 <div class="col-lg-12">
                   <div class="car-widget" style="width: 102%">
                     <div class="row">
-                      <!-- <div class="col-md-3 car-sort-box">
+                      <div class="col-md-3 car-sort-box">
                         <div class="car-search-form">
                           <span
                             style="
@@ -32,18 +32,20 @@
                                 type="text"
                                 class="form-control"
                                 placeholder="Search"
-                                v-model="searchKeyword"
-                                @input="filterCars"
+                                v-model="searchTerm"
                               />
-                              <button type="search">
+                              <button
+                                type="search"
+                                @click="searchCarsAndUpdateURL"
+                              >
                                 <i class="far fa-search"></i>
                               </button>
                             </div>
                           </form>
                         </div>
-                      </div> -->
+                      </div>
 
-                      <div class="col-md-4 car-sort-box">
+                      <div class="col-md-3 car-sort-box">
                         <span
                           style="
                             color: var(--color-blue-blue-06, #0f5392);
@@ -66,7 +68,7 @@
                           placeholder="Pilih Urutan"
                         ></v-select>
                       </div>
-                      <div class="col-md-4 car-sort-box">
+                      <div class="col-md-3 car-sort-box">
                         <span
                           style="
                             color: var(--color-blue-blue-06, #0f5392);
@@ -91,7 +93,7 @@
                       </div>
 
                       <div
-                        class="col-md-4 car-sort-box"
+                        class="col-md-3 car-sort-box"
                         style="margin-top: -5px"
                       >
                         <span
@@ -414,6 +416,7 @@ import "vue-select/dist/vue-select.css"; // Import the CSS file for vue-select
 export default {
   data() {
     return {
+      searchTerm: "",
       currentPage: 1,
       itemsPerPage: 6,
       searchKeyword: "", // Parameter pencarian
@@ -552,6 +555,7 @@ export default {
         jenis_name: this.selectedJenis
           ? this.selectedJenis.map((item) => item.label).join(",")
           : "",
+        search: this.searchTerm,
         //  length: 100,
         // jenis_name: this.selectedJenis ? this.selectedJenis[0].value : "",
       };
@@ -587,6 +591,7 @@ export default {
         jenis_name: this.selectedJenis
           ? this.selectedJenis.map((item) => item.label).join(",")
           : "",
+        search: this.searchTerm,
         // length: 100,
         // jenis_name: this.selectedJenis ? this.selectedJenis[0].value : "", // Add this line
       };
