@@ -54,7 +54,7 @@
                       <form action="#">
                         <div class="form-group">
                           <input
-                            v-model="searchTerm"
+                            v-model="searchKey"
                             type="text"
                             class="form-control"
                             placeholder="Search"
@@ -291,7 +291,7 @@
                     <v-icon color="orange" large>mdi-chevron-left</v-icon>
                   </template>
                   <v-slide-item
-                    v-for="c in filteredCarData.slice(0, limit)"
+                    v-for="c in carData.slice(0, limit)"
                     :key="c.id"
                     class="mr-5"
                   >
@@ -553,7 +553,7 @@
                     <v-icon color="orange" large>mdi-chevron-left</v-icon>
                   </template>
                   <v-slide-item
-                    v-for="c in filteredCarPopular.slice(0, limit)"
+                    v-for="c in carPopular.slice(0, limit)"
                     :key="c.id"
                     class="mr-5"
                   >
@@ -807,7 +807,7 @@ export default {
       carBrands: [],
       carJenis: [],
       limit: 1000,
-      searchTerm: "",
+      searchKey: "",
       selectedMerek: "",
       selectedTransmisi: "",
       selectedBbm: "",
@@ -954,7 +954,7 @@ export default {
       this.fetchLatestCars(this.searchTerm);
       this.fetchPopularCars(this.searchTerm);
     },
-    fetchLatestCars(searchTerm = "") {
+    fetchLatestCars() {
       axios
         .get("https://api.jaja.id/jauto/produk/get_latest", {
           headers: {
@@ -962,17 +962,13 @@ export default {
           },
         })
         .then((response) => {
-          this.carData = response.data.data; // Save car data from API response
-          this.totalLatestCars = this.carPopular.length; // Calculate total popular cars
-          this.isLoading = false; // Set isLoading to false when data is loaded
+          this.carData = response.data.data;
         })
         .catch((error) => {
           console.error("Failed to fetch latest cars data:", error);
-          this.isLoading = false; // Set isLoading to false in case of an error
         });
     },
-    fetchPopularCars(searchTerm = "") {
-      this.isLoading = true; // Set isLoading to true before fetching data
+    fetchPopularCars() {
       axios
         .get("https://api.jaja.id/jauto/produk/get_popular", {
           headers: {
@@ -980,13 +976,10 @@ export default {
           },
         })
         .then((response) => {
-          this.carPopular = response.data.data; // Save car data from API response
-          this.totalPopularCars = this.carPopular.length; // Calculate total popular cars
-          this.isLoading = false; // Set isLoading to false after data is loaded
+          this.carPopular = response.data.data;
         })
         .catch((error) => {
           console.error("Failed to fetch popular cars data:", error);
-          this.isLoading = false; // Set isLoading to false in case of an error
         });
     },
 
@@ -996,9 +989,12 @@ export default {
       ];
       this.searchCars();
     },
-    selectType(type) {
+    async selectType(type) {
       this.selectedJenis = [{ value: type.jenis_name, label: type.jenis_name }];
-      this.searchCarsAndUpdateURL();
+      await this.searchCarsAndUpdateURL();
+
+      //ini menambaahkan refresh saat klik jenis mobil
+      window.location.reload();
     },
     async searchCarsAndUpdateURL() {
       await localStorage.setItem(
@@ -1035,7 +1031,7 @@ export default {
         jenis_name: this.selectedJenis
           ? this.selectedJenis.map((item) => item.label).join(",")
           : "",
-        search: this.searchTerm,
+        search: this.searchKey,
         // jenis_name: this.selectedJenis ? this.selectedJenis[0].value : "",
       };
 
@@ -1117,7 +1113,7 @@ export default {
         sort_by: this.selectedSortBy ? this.selectedSortBy.value : "",
         sort_order: this.selectedSortOrder ? this.selectedSortOrder.value : "",
         jenis_name: this.selectedJenis ? this.selectedJenis[0].value : "", // Add this line
-        search: this.searchTerm,
+        search: this.searchKey,
         //length: 100,
       };
 

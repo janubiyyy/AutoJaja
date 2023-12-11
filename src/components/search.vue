@@ -32,7 +32,7 @@
                                 type="text"
                                 class="form-control"
                                 placeholder="Search"
-                                v-model="searchTerm"
+                                v-model="searchKey"
                               />
                               <button
                                 type="search"
@@ -416,7 +416,7 @@ import "vue-select/dist/vue-select.css"; // Import the CSS file for vue-select
 export default {
   data() {
     return {
-      searchTerm: "",
+      searchKey: "",
       currentPage: 1,
       itemsPerPage: 6,
       searchKeyword: "", // Parameter pencarian
@@ -555,7 +555,7 @@ export default {
         jenis_name: this.selectedJenis
           ? this.selectedJenis.map((item) => item.label).join(",")
           : "",
-        search: this.searchTerm,
+        search: this.searchKey,
         //  length: 100,
         // jenis_name: this.selectedJenis ? this.selectedJenis[0].value : "",
       };
@@ -591,7 +591,7 @@ export default {
         jenis_name: this.selectedJenis
           ? this.selectedJenis.map((item) => item.label).join(",")
           : "",
-        search: this.searchTerm,
+        search: this.searchKey,
         // length: 100,
         // jenis_name: this.selectedJenis ? this.selectedJenis[0].value : "", // Add this line
       };

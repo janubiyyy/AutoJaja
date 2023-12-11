@@ -1,9 +1,7 @@
 <template>
   <div class="container">
     <div class="d-flex justify-content-between">
-      <h3 style="color: #207ACE;" class="car-single-title">
-        Rekomendasi
-      </h3>
+      <h3 style="color: #207ace" class="car-single-title">Rekomendasi</h3>
       <!-- <router-link
         :to="'/kategori'"
         href="#"
@@ -23,15 +21,15 @@
             class="wow fadeInUp"
             data-wow-delay=".25s"
             style="
-                      box-shadow: 20px;
-                      background: white;
-                      border-radius: 10px;
-                      padding: 10px;
-                      height: auto;
-                      margin-bottom: 25px;
-                      box-shadow: var(--box-shadow);
-                      transition: var(--transition);
-                    "
+              box-shadow: 20px;
+              background: white;
+              border-radius: 10px;
+              padding: 10px;
+              height: auto;
+              margin-bottom: 25px;
+              box-shadow: var(--box-shadow);
+              transition: var(--transition);
+            "
           >
             <div class="car-img">
               <!-- <span class="car-status status-1">Used</span> -->
@@ -54,18 +52,18 @@
                 <h4>
                   <a
                     style="
-                              color: black;
-                              display: inline-block;
-                              overflow: hidden;
-                              text-overflow: ellipsis;
-                              white-space: nowrap;
-                              max-width: 100%; /* Ubah sesuai kebutuhan */
-                            "
+                      color: black;
+                      display: inline-block;
+                      overflow: hidden;
+                      text-overflow: ellipsis;
+                      white-space: nowrap;
+                      max-width: 100%; /* Ubah sesuai kebutuhan */
+                    "
                     href="#"
                     >{{ c.model }}</a
                   >
                 </h4>
-                <span style="color: #207ACE" class="car-price"
+                <span style="color: #207ace" class="car-price"
                   >Rp.{{ formatPrice(c.price) }}</span
                 >
               </div>
@@ -75,7 +73,7 @@
                   <v-chip
                     class="mt-2"
                     closable
-                    style="padding: 5px;"
+                    style="padding: 5px"
                     color="#207ace"
                     text-color="#207ACE"
                     label
@@ -83,12 +81,16 @@
                     <router-link :to="'/'">
                       <img
                         src="../assets/img/foot/jajaauto.png"
-                        style="width: 70px;"
-                        alt=""/></router-link
+                        style="width: 70px"
+                        alt="" /></router-link
                   ></v-chip>
                 </v-col>
                 <v-col
-                  style="display: flex; align-items: center; justify-content: flex-end;"
+                  style="
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-end;
+                  "
                 >
                   <div><li>10.000/Km</li></div>
                 </v-col>
@@ -96,24 +98,24 @@
 
               <button
                 style="
-                         margin-top: 10px;
-  font-size: 16px;
-  width: 100%;
-  height: auto;
-  color: #207ace;
-  padding: 7px 10px;
-  transition: all 0.5s;
-  text-transform: capitalize;
-  position: relative;
-  border-radius: 7px;
-  font-weight: 500;
-  cursor: pointer;
-  background-color: white;
-  text-align: center;
-  overflow: hidden;
-  z-index: 1;
-  border: 2px solid #207ace; /* Menambahkan border dengan warna biru yang sama */
-                        "
+                  margin-top: 10px;
+                  font-size: 16px;
+                  width: 100%;
+                  height: auto;
+                  color: #207ace;
+                  padding: 7px 10px;
+                  transition: all 0.5s;
+                  text-transform: capitalize;
+                  position: relative;
+                  border-radius: 7px;
+                  font-weight: 500;
+                  cursor: pointer;
+                  background-color: white;
+                  text-align: center;
+                  overflow: hidden;
+                  z-index: 1;
+                  border: 2px solid #207ace; /* Menambahkan border dengan warna biru yang sama */
+                "
                 @click="handledetail(c.slug)"
                 class=""
               >
