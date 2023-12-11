@@ -983,12 +983,15 @@ export default {
         });
     },
 
+    //Filter berdasarkan merk pada logo brand
     selectBrand(brand) {
       this.selectedMerek = [
         { value: brand.nama_merek, label: brand.nama_merek },
       ];
       this.searchCars();
     },
+
+    //Filter berdasarkan Tipe mobil pada logo jenis mobil
     async selectType(type) {
       this.selectedJenis = [{ value: type.jenis_name, label: type.jenis_name }];
       await this.searchCarsAndUpdateURL();
@@ -1042,6 +1045,7 @@ export default {
 
       await this.searchCars();
     },
+    
     async fetchCarJenis() {
       try {
         const response = await axios.get(
